@@ -38,7 +38,7 @@ const products = [
     id: 6,
     name: 'Producto 6',
     description: 'Descripción breve del producto 6.',
-    price: 5000,
+    price: 6000,
     image: 'https://www.innovasport.com/medias/IS-HT3458-1.jpg?context=bWFzdGVyfGltYWdlc3wxMjc3NjF8aW1hZ2UvanBlZ3xhVzFoWjJWekwyZ3lPUzlvWlRBdk1URTFOek13TmpJek5qa3pNVEF1YW5Cbnw5MTFmNDVkOGYxNzk5MjA2YjFiZTg0Y2UzOWE2MDZlMmQwMTA5NDI5ZjI0ZGQwMWFlZTc5MzY3YTVkZWMyNTE4'
   }
 ];
