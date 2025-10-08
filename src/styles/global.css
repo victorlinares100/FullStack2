@@ -1,0 +1,61 @@
+/* --- Nuevo Estilo para limitar la altura del carrusel --- */
+
+.carousel-limit-height {
+  /* Establece la altura MÁXIMA que quieres que tenga TODO el carrusel */
+  max-height: 400px; /* **ALTURA FIJA DESEADA** */
+  overflow: hidden; /* Oculta cualquier parte de la imagen que se salga */
+  border-radius: 8px; 
+}
+
+/* 1. Asegura que CADA diapositiva del carrusel tenga la misma altura */
+.carousel-limit-height .carousel-item {
+  height: 400px; /* Debe coincidir con la altura máxima */
+}
+
+/* 2. Asegura que la imagen dentro de la diapositiva cubra ese espacio */
+.carousel-limit-height .carousel-item img {
+  /* La clase Bootstrap d-block w-100 ya hace que ocupe el 100% del ancho */
+  height: 100%; /* Ocupa el 100% de la altura del .carousel-item (que es 400px) */
+  object-fit: cover;
+  display: block;
+   /* Clave: recorta la imagen (si es necesario) para que cubra todo el espacio sin distorsionarse. */
+}
+
+/* Opcional: Si quieres mantener el espaciado de tu HTML anterior */
+.section-spacing {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+
+/* --- Estilos Migrados de tu HTML original --- */
+
+/* Estilo para los links de sesión */
+.font {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #343a40; /* Cambia a tu color original si era diferente */
+  text-decoration: none;
+  margin-right: 15px; /* Espaciado entre Iniciar Sesión y Registrarse */
+}
+.font:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para el título de la sección "MÁS POPULARES" */
+.titulo-seccion {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #343a40; /* Color principal de tu sitio */
+  text-align: center;
+  margin: 3rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #007bff; /* Un color de acento o de tu marca */
+  display: inline-block; /* Para que el borde_bottom solo cubra el texto */
+}
+
+
+.navbar-custom {
+  background-color: #343a40 !important; /* Ejemplo: un gris oscuro */
+  border-bottom: 3px solid #007bff; /* Línea de acento si la tenías */
+}

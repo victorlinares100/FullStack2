@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Carousel, Row, Col } from 'react-bootstrap';
 import ProductCard from '../components/organisms/ProductCard'; 
-import products from '../data/Products'; 
+import products from '../data/Products';
 
 function Home() {
   // 1. Definir los productos que van en la sección "MÁS POPULARES" (los 6 primeros)
@@ -10,9 +10,9 @@ function Home() {
   // 2. Datos del Carrusel (Ajusta la ruta de 'src' si es necesario)
   // NOTA: Asumo que las imágenes están en la carpeta 'public' de Vite para usar la ruta absoluta '/assets/img/...'
   const carouselItems = [
-    { id: 1, src: '/assets/img/FOTO_CAROUSEL1.WEBP', alt: 'PRIMER SLIDE' },
-    { id: 2, src: '/assets/img/FOTO_CAROUSEL2.WEBP', alt: 'SEGUNDO SLIDE' },
-    { id: 3, src: '/assets/img/FOTO_CAROUSEL3.WEBP', alt: 'TERCER SLIDE' },
+    { id: 1, src: 'https://media.istockphoto.com/id/1321017606/es/foto/camisetas-y-camisetas-deportivas-multicolores-sin-mangas.jpg?s=612x612&w=0&k=20&c=hnl_sgqOeWSTTct1-PtvEKGQWy6gPi_FY1IiG1bW910=', alt: 'PRIMER SLIDE' },
+    { id: 2, src: 'https://basicvintage.cl/wp-content/uploads/2021/11/bvintage-Julio-22.jpg', alt: 'SEGUNDO SLIDE' },
+    { id: 3, src: 'https://e1.pxfuel.com/desktop-wallpaper/997/8/desktop-wallpaper-clothing-store.jpg', alt: 'TERCER SLIDE' },
   ];
 
   return (
