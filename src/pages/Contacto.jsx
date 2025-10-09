@@ -1,28 +1,27 @@
+// src/pages/Contacto.jsx
 import React, { useState } from "react";
-import { Container, Form, Button, Alert } from "react-bootstrap";
+import { Container, Form, Button } from "react-bootstrap";
+import Footer from "../components/organisms/Footer";
+import Input from "../components/molecules/Input"
+import Mensaje from "../components/atoms/mensaje";
 
 function Contacto() {
-  // Estados para los campos del formulario
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
   const [contenido, setContenido] = useState("");
   const [mensaje, setMensaje] = useState(null);
 
-  // Función para manejar el submit
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validación simple
     if (!nombre || !correo || !contenido) {
       setMensaje({ tipo: "danger", texto: "Por favor, complete todos los campos." });
       return;
     }
 
     // Aquí podrías enviar los datos a un backend o API
-
     setMensaje({ tipo: "success", texto: "¡Mensaje enviado correctamente!" });
 
-    // Limpiar formulario
     setNombre("");
     setCorreo("");
     setContenido("");
@@ -34,42 +33,38 @@ function Contacto() {
         <h2>Contacto</h2>
 
         {mensaje && (
-          <Alert variant={mensaje.tipo} onClose={() => setMensaje(null)} dismissible>
-            {mensaje.texto}
-          </Alert>
+          <Mensaje
+            variant={mensaje.tipo}
+            text={mensaje.texto}
+            onClose={() => setMensaje(null)}
+          />
         )}
 
         <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="nombre" className="mb-3">
-            <Form.Label>Nombre:</Form.Label>
-            <Form.Control
-              type="text"
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
-              required
-            />
-          </Form.Group>
+          <Input
+            id="nombre"
+            label="Nombre:"
+            type="text"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+          />
 
-          <Form.Group controlId="correo" className="mb-3">
-            <Form.Label>Correo:</Form.Label>
-            <Form.Control
-              type="email"
-              value={correo}
-              onChange={(e) => setCorreo(e.target.value)}
-              required
-            />
-          </Form.Group>
+          <Input
+            id="correo"
+            label="Correo:"
+            type="email"
+            value={correo}
+            onChange={(e) => setCorreo(e.target.value)}
+          />
 
-          <Form.Group controlId="contenido" className="mb-3">
-            <Form.Label>Mensaje:</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={4}
-              value={contenido}
-              onChange={(e) => setContenido(e.target.value)}
-              required
-            />
-          </Form.Group>
+          <Input
+            id="contenido"
+            label="Mensaje:"
+            as="textarea"
+            rows={4}
+            value={contenido}
+            onChange={(e) => setContenido(e.target.value)}
+          />
 
           <div className="d-flex align-items-center gap-3">
             <Button type="submit" variant="primary">
@@ -84,9 +79,7 @@ function Contacto() {
         </Form>
       </Container>
 
-      <footer className="text-center py-3 mt-5">
-        <p>&copy; 2025 Áurea - Todos los derechos reservados</p>
-      </footer>
+      <Footer />
     </>
   );
 }

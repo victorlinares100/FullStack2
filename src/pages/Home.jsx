@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Carousel, Row, Col } from 'react-bootstrap';
 import ProductCard from '../components/organisms/ProductCard'; 
 import products from '../data/Products';
+import Footer from '../components/organisms/Footer';
 
 function Home() {
   
@@ -50,9 +51,7 @@ function Home() {
       </Container>
       
       
-      <footer>
-        <p className="text-center py-3">&copy; 2025 Áurea - Todos los derechos reservados</p>
-      </footer>
+      <Footer />
     </>
   );
 }
