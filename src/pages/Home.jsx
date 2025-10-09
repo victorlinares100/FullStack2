@@ -4,7 +4,7 @@ import ProductCard from '../components/organisms/ProductCard';
 import products from '../data/Products';
 
 function Home() {
-  // 1. Definir los productos que van en la sección "MÁS POPULARES" (los 6 primeros)
+  
   const popularProducts = products.slice(0, 6); 
 
   const carouselItems = [

@@ -1,44 +1,43 @@
-import React from "react";
-import { Container } from "react-bootstrap";
+// src/pages/Nosotros.jsx
+import React from 'react';
+import { Container } from 'react-bootstrap';
+import Text from '../components/atoms/Text';
+import Footer from '../components/organisms/Footer';
 
 function Nosotros() {
   return (
     <>
-      {/* Contenido principal */}
       <Container className="my-5 contenido">
-        <h2>Nuestra Historia</h2>
-        <p>
+        <Text variant="h2">Nuestra Historia</Text>
+        <Text>
           Áurea nació con la idea de ofrecer ropa moderna, cómoda y accesible para
           quienes buscan expresar su estilo personal. Comenzamos como un pequeño
           proyecto y hoy seguimos creciendo gracias a la confianza de nuestros
           clientes.
-        </p>
+        </Text>
 
-        <h2>Misión</h2>
-        <p>
+        <Text variant="h2">Misión</Text>
+        <Text>
           Nuestra misión es entregar prendas de calidad, inspiradas en las últimas
           tendencias, que combinen diseño y comodidad para el día a día.
-        </p>
+        </Text>
 
-        <h2>Visión</h2>
-        <p>
+        <Text variant="h2">Visión</Text>
+        <Text>
           Queremos ser reconocidos como una marca cercana, confiable y con estilo,
           llevando la moda urbana a todas las personas que buscan marcar la diferencia.
-        </p>
+        </Text>
 
-        <h2>Valores</h2>
+        <Text variant="h2">Valores</Text>
         <ul>
-          <li>Calidad en cada prenda</li>
-          <li>Compromiso con nuestros clientes</li>
-          <li>Diseño innovador</li>
-          <li>Sostenibilidad y responsabilidad</li>
+          <Text variant="li">Calidad en cada prenda</Text>
+          <Text variant="li">Compromiso con nuestros clientes</Text>
+          <Text variant="li">Diseño innovador</Text>
+          <Text variant="li">Sostenibilidad y responsabilidad</Text>
         </ul>
       </Container>
 
-      {/* Footer */}
-      <footer className="text-center py-3">
-        <p>&copy; 2025 Áurea - Todos los derechos reservados</p>
-      </footer>
+      <Footer />
     </>
   );
 }
