@@ -6,6 +6,10 @@ import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Nosotros from './pages/Nosotros';
 import Contacto from './pages/Contacto';
+import Registro from './pages/Registro';
+import Login from './pages/Login';
+
+
 
 function App() {
   return (
@@ -17,6 +21,8 @@ function App() {
         <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/contacto" element={<Contacto />} />
+        <Route path="/registro" element={<Registro />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </>
   );

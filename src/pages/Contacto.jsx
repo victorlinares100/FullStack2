@@ -5,6 +5,7 @@ import Footer from "../components/organisms/Footer";
 import Input from "../components/molecules/Input"
 import Mensaje from "../components/atoms/mensaje";
 
+
 function Contacto() {
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
@@ -72,7 +73,7 @@ function Contacto() {
             </Button>
 
             <div>
-              <a href="/registro">Registro de Usuario · </a>
+              <a href="/Registro">Registro de Usuario · </a>
               <a href="/login">Inicio de Sesión</a>
             </div>
           </div>

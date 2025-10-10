@@ -4,6 +4,7 @@ import ProductCard from '../components/organisms/ProductCard';
 import products from '../data/Products';
 import Footer from '../components/organisms/Footer';
 
+
 function Home() {
   
   const popularProducts = products.slice(0, 6); 
@@ -19,8 +20,8 @@ function Home() {
       <Container className="py-4"> 
         {/* Links de Sesión */}
         <div className="d-flex mb-3"> 
-          <a className="font me-3" href="/login">Iniciar sesión </a>
-          <a className="font" href="/registro">Registrarse</a>
+          <a className="font me-3" href="/Login">Iniciar sesión </a>
+          <a className="font" href="/Registro">Registrarse</a>
         </div>
 
         <section>       
