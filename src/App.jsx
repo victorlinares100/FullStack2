@@ -8,6 +8,7 @@ import Nosotros from './pages/Nosotros';
 import Contacto from './pages/Contacto';
 import Registro from './pages/Registro';
 import Login from './pages/Login';
+import Blog from './pages/Blog';
 
 
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/blog" element={<Blog />} />
       </Routes>
     </>
   );
