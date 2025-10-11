@@ -10,6 +10,8 @@ import './styles/blog.css';
 import './styles/footer.css'
 import './styles/Nosotros.css';
 import './styles/products.css';
+import './styles/Contacto.css';
+
 
 
 createRoot(document.getElementById('root')).render(

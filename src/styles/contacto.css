@@ -1,0 +1,44 @@
+/* === Estilos específicos de la página de contacto === */
+
+form {
+  background-color: #fff;
+  max-width: 450px; /* AUMENTAMOS el ancho para dar espacio al botón y enlaces */
+  margin: 40px auto;
+  padding: 30px 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ... (otros estilos de input, label, button, etc.) ... */
+
+/* ESTILOS CLAVE PARA LOS ENLACES */
+
+/* Asegura que los enlaces y el separador estén en línea */
+.links-container {
+  /* Si el flex en el HTML no es suficiente, descomenta estas líneas */
+  display: flex;
+  align-items: center;
+  /* Elimina cualquier flex-direction: column; si existe */
+}
+
+/* El estilo del separador */
+.separator {
+  color: var(--blue);
+  /* Espacio pequeño y uniforme a los lados del punto/círculo */
+  margin: 0 4px; /* 4px a la izquierda y 4px a la derecha */
+  line-height: 1; /* Para que el separador se alinee bien verticalmente */
+}
+
+/* El estilo de los enlaces */
+.links-container a {
+  color: var(blue);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  white-space: nowrap; /* MUY IMPORTANTE: Evita que el texto se rompa en varias líneas */
+}
+
+.links-container a:hover {
+  color: var(blue);
+  text-decoration: underline;
+}
