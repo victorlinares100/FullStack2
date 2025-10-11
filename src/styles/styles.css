@@ -193,12 +193,4 @@ button:hover { background-color: #1565c0; }
 .centrar-texto { text-align: center; }
 .cards-row .col-card { margin-bottom: 2rem; }  
 
-footer {
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: #0b2545;
-  color: white;
-  text-align: center;
-  padding: 15px;
-}
+

@@ -153,7 +153,6 @@ function Registro() {
         </div>
       </Container>
 
-      <Footer />
     </>
   );
 }

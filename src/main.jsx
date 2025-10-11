@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/global.css';
 import './styles/styles.css';
 import './styles/Blog.css';
-import './styles/Footer.css';
+import './styles/footer.css'
 import './styles/Nosotros.css';
 
 

@@ -52,7 +52,7 @@ function Home() {
       </Container>
       
       
-      <Footer />
+      
     </>
   );
 }

@@ -102,7 +102,6 @@ function Blog() {
         </Modal.Body>
       </Modal>
 
-      <Footer />
     </>
   );
 }

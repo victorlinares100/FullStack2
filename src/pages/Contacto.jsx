@@ -80,7 +80,6 @@ function Contacto() {
         </Form>
       </Container>
 
-      <Footer />
     </>
   );
 }
