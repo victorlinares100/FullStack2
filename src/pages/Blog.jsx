@@ -1,7 +1,6 @@
 // src/pages/Blog.jsx
 import React, { useState } from "react";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
-import Footer from "../components/organisms/Footer";
 import Text from "../components/atoms/Text"; // 
 
 function Blog() {

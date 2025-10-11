@@ -1,7 +1,6 @@
 // src/pages/Contacto.jsx
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
-import Footer from "../components/organisms/Footer";
 import Input from "../components/molecules/Input"
 import Mensaje from "../components/atoms/mensaje";
 

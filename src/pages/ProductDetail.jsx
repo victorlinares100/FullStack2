@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import products from '../data/Products.js';
 import Image from '../components/atoms/Image.jsx';
 import Text from '../components/atoms/Text.jsx';
+import '../styles/ProductDetail.css'; 
 
 function ProductDetail() {
   const { id } = useParams();
@@ -19,8 +20,12 @@ function ProductDetail() {
 
   return (
     <Container className="my-5">
-      <Card>
-        <Image src={product.image} alt={product.name} className="card-img-top" />
+      <Card className="product-detail-card">
+        <Image
+          src={product.image}
+          alt={product.name}
+          className="product-detail-image"
+        />
         <Card.Body>
           <Text variant="h2">{product.name}</Text>
           <Text variant="p">{product.description}</Text>

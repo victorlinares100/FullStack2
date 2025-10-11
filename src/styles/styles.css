@@ -93,7 +93,7 @@ h2 {
 }
 
 
-.row .card { width: 100% !important; }
+
 
 .card {
   display: flex;
@@ -110,13 +110,7 @@ h2 {
   box-shadow: 0 14px 32px rgba(0,0,0,.12);
 }
 
-.card-img-top {
-  object-fit: cover;
-  height: 340px;
-  width: 100%;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-}
+
 
 .card-title {
   font-weight: bold;

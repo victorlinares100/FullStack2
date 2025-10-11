@@ -2,7 +2,7 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import Text from '../components/atoms/Text';
-import Footer from '../components/organisms/Footer';
+
 
 function Nosotros() {
   return (

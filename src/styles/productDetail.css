@@ -1,0 +1,14 @@
+.product-detail-card {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.product-detail-image {
+  width: 50%;       /* Ajusta al tamaño que quieras */
+  max-width: 400px; /* Máximo ancho */
+  height: auto;     /* Mantener proporción */
+  display: block;
+  margin: 0 auto 1rem auto; /* Centrar horizontalmente y separarla del texto */
+  border-radius: 16px;
+  object-fit: cover;
+}
