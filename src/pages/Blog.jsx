@@ -74,7 +74,7 @@ function Blog() {
         </Modal.Header>
         <Modal.Body className="text-center">
           <img
-            src="https://cdn.pixabay.com/photo/2017/02/20/18/03/winter-2080072_1280.jpg"
+            src="https://ae01.alicdn.com/kf/Sda38867f5ff54201a7b366a287ec7e772/2024-Mens-Winter-Ultralight-Down-Jacket-Lightweight-Luxury-Designer-Clothing-Winter-Thick-Coat-Heated-Jacket-Winter.jpg?odnHeight=612&odnWidth=612&odnBg=FFFFFF"
             alt="Ropa de invierno ampliada"
             className="img-fluid rounded mb-3"
           />
@@ -91,7 +91,7 @@ function Blog() {
         </Modal.Header>
         <Modal.Body className="text-center">
           <img
-            src="https://cdn.pixabay.com/photo/2016/03/27/19/44/sport-1284656_1280.jpg"
+            src="https://media.istockphoto.com/id/466367844/es/foto/ropa-que-correr.jpg?s=612x612&w=0&k=20&c=oUoFqsmXWWJknxKZ16Ai_j7JfEgj9o7RBxA9B6tvK-k="
             alt="Ropa deportiva detalle"
             className="img-fluid rounded mb-3"
           />

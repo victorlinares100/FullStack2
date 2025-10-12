@@ -13,7 +13,7 @@ function ProductDetail() {
   if (!product) {
     return (
       <Container className="my-5">
-        <h1>Producto no encontrado</h1>
+        <Text variant="h2">Producto no encontrado</Text>
       </Container>
     );
   }

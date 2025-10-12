@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Carousel, Row, Col } from 'react-bootstrap';
 import ProductCard from '../components/organisms/ProductCard'; 
 import products from '../data/Products';
-import Footer from '../components/organisms/Footer';
+
 
 
 function Home() {

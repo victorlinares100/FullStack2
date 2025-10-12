@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import Footer from "../components/organisms/Footer";
 import Input from "../components/molecules/Input";
+import Text from "../components/atoms/Text";
 import Mensaje from "../components/atoms/mensaje";
 
 function Login() {
@@ -38,7 +39,7 @@ function Login() {
   return (
     <>
       <Container className="my-5">
-        <h2>Iniciar Sesión</h2>
+        <Text variant="h2">Iniciar Sesion</Text>
 
         {mensaje && (
           <Mensaje

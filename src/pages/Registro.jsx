@@ -63,7 +63,7 @@ function Registro() {
       
 
       <Container className="my-5">
-        <h2>Registro de Usuario</h2>
+        <Text variant="h2">Registro De Usuario</Text>
 
         {mensaje && (
           <Mensaje
