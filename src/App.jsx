@@ -11,7 +11,7 @@ import Registro from './pages/Registro';
 import Login from './pages/Login';
 import Blog from './pages/Blog';
 import Footer from './components/organisms/Footer';
-import Carrito from './pages/carrito';
+import Carrito from './pages/Carrito';
 
 
 function App() {
