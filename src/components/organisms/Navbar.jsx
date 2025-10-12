@@ -14,6 +14,7 @@ function NavBar() {
             <Nav.Link href="/Nosotros">Nosotros</Nav.Link>
             <Nav.Link href="/Contacto">Contactanos</Nav.Link>
             <Nav.Link href="/Blog">Blog</Nav.Link>
+            <Nav.Link href="/Carrito">Carrito</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

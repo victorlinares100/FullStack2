@@ -11,6 +11,7 @@ import Registro from './pages/Registro';
 import Login from './pages/Login';
 import Blog from './pages/Blog';
 import Footer from './components/organisms/Footer';
+import Carrito from './pages/carrito';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/registro" element={<Registro />} />
           <Route path="/login" element={<Login />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/carrito" element={<Carrito />} />
         </Routes>
       </main>
       <Footer />
