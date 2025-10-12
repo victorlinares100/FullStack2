@@ -5,7 +5,7 @@ import { getCartItems, removeProductFromCart, calculateTotal,clearAllCart }
 from '../data/cart'; 
 import Text from '../components/atoms/Text';
 import Button from '../components/atoms/Button';
-import Mensaje from '../components/atoms/mensaje';
+import Mensaje from '../components/atoms/Mensaje';
 
 function Carrito() {
   const [cartItems, setCartItems] = useState([]);

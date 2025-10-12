@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import Input from "../components/molecules/Input";
-import Mensaje from "../components/atoms/mensaje";
+import Mensaje from "../components/atoms/Mensaje";
 import Text from "../components/atoms/Text";
 
 

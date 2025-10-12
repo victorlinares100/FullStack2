@@ -3,7 +3,7 @@ import { Container, Form, Button } from "react-bootstrap";
 import Footer from "../components/organisms/Footer";
 import Input from "../components/molecules/Input";
 import Text from "../components/atoms/Text";
-import Mensaje from "../components/atoms/mensaje";
+import Mensaje from "../components/atoms/Mensaje";
 
 function Login() {
   const [correo, setCorreo] = useState("");
