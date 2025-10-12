@@ -1,0 +1,16 @@
+{
+ "rewrites": [
+   {
+     "source": "/(.*)",
+     "destination": "/Home.jsx",
+     "destination": "/Blog.jsx",
+     "destination": "/Carrito.jsx",
+     "destination": "/Contacto.jsx",
+     "destination": "/Login.jsx",
+     "destination": "/Nosotros.jsx",
+     "destination": "/ProductDetail.jsx",
+     "destination": "/Products.jsx",
+     "destination": "/Registro.jsx"
+   }
+ ]
+}
