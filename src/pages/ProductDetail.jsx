@@ -1,6 +1,6 @@
 import React from 'react';
-import { Container, Card } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { Container, Card, Button } from 'react-bootstrap';
+import { useParams, Link } from 'react-router-dom';
 import products from '../data/Products.js';
 import Image from '../components/atoms/Image.jsx';
 import Text from '../components/atoms/Text.jsx';
@@ -31,7 +31,11 @@ function ProductDetail() {
           <Text variant="p">{product.description}</Text>
           <Text variant="h4">${product.price}</Text>
         </Card.Body>
+        <Button as={Link} to="/" variant="warning">
+        Ir al inicio
+        </Button>
       </Card>
+      
     </Container>
   );
 }
