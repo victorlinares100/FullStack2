@@ -10,7 +10,7 @@ import './styles/Blog.css';
 import './styles/footer.css'
 import './styles/nosotros.css';
 import './styles/products.css';
-import './styles/Contacto.css';
+import './styles/contacto.css';
 
 
 
