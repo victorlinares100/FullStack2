@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
-import Footer from "../components/organisms/Footer";
 import Input from "../components/molecules/Input";
 import Text from "../components/atoms/Text";
 import Mensaje from "../components/atoms/Mensaje";
@@ -72,7 +71,7 @@ function Login() {
         </Form>
 
         <div className="mt-3">
-          <a href="/registro">¿No tienes cuenta? Regístrate aquí</a>
+          <a href="/Registro">¿No tienes cuenta? Regístrate aquí</a>
         </div>
       </Container>
 
