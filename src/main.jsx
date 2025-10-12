@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/home.css';
 import './styles/styles.css';
-import './styles/blog.css';
+import './styles/Blog.css';
 import './styles/footer.css'
 import './styles/Nosotros.css';
 import './styles/products.css';
