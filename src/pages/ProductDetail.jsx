@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import products from '../data/Products.js';
 import Image from '../components/atoms/Image.jsx';
 import Text from '../components/atoms/Text.jsx';
-import '../styles/ProductDetail.css'; 
+import '../styles/productDetail.css'; 
 
 function ProductDetail() {
   const { id } = useParams();
