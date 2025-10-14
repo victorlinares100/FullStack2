@@ -1,6 +1,4 @@
-// src/data/cart.js
 
-// Nombre de la clave en localStorage
 const CART_STORAGE_KEY = 'aurea_shopping_cart';
 
 // Función auxiliar para obtener el carrito del localStorage
@@ -25,11 +23,7 @@ const saveCartItems = (items) => {
   }
 };
 
-// =======================================================
-// FUNCIONES DE MANIPULACIÓN DEL CARRITO
-// =======================================================
 
-// Agrega un producto al carrito (o incrementa su cantidad)
 export const addProductToCart = (product) => {
   const currentItems = getCartItems();
   

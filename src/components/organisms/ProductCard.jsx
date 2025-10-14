@@ -23,10 +23,8 @@ function ProductCard({ product }) {
           price={product.price}
         />
         
-        {/* Contenedor para alinear los dos botones */}
         <div className="d-flex justify-content-between mt-3">
             
-            {/* Botón existente: Ver detalles */}
             <Button 
                 variant="secondary" 
                 size="sm"
@@ -35,7 +33,7 @@ function ProductCard({ product }) {
                 Ver detalles
             </Button>
             
-            {/* Botón NUEVO: Añadir al Carrito */}
+            
             <Button 
                 variant="primary" 
                 size="sm"
