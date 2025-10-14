@@ -1,27 +1,41 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import Home from '../../pages/Home';
-
+import products from '../../data/Products';
 
 describe('Home Page', () => {
- it('renderiza el título de la página de inicio', () => {
-   render(<Home />);
-   const title = screen.getByText('Página de Inicio');
-   expect(title).toBeTruthy();
- });
+  function renderHome() {
+    return render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
+    );
+  }
 
+  it('renderiza los enlaces de sesión', () => {
+    renderHome();
+    expect(screen.getByText('Iniciar sesión')).toBeTruthy();
+    expect(screen.getByText('Registrarse')).toBeTruthy();
+  });
 
- it('renderiza el párrafo de bienvenida', () => {
-   render(<Home />);
-   const paragraph = screen.getByText('Bienvenidos a nuestro sitio web.');
-   expect(paragraph).toBeTruthy();
- });
+  it('renderiza el carousel con 3 slides', () => {
+    renderHome();
+    // Buscar por alt específico
+    const slide1 = screen.getByAltText('PRIMER SLIDE');
+    const slide2 = screen.getByAltText('SEGUNDO SLIDE');
+    const slide3 = screen.getByAltText('TERCER SLIDE');
 
+    expect(slide1).toBeTruthy();
+    expect(slide2).toBeTruthy();
+    expect(slide3).toBeTruthy();
+  });
 
- it('renderiza el contenedor de Bootstrap', () => {
-   render(<Home />);
-   const container = screen.getByText('Página de Inicio').closest('div');
-   expect(container).toHaveClass('container'); // Verifica la clase de Bootstrap
-   expect(container).toHaveClass('my-5'); // Verifica la clase my-5
- });
+  it('renderiza los productos más populares', () => {
+    renderHome();
+    // Verificamos que los nombres de los primeros 6 productos se vean
+    products.slice(0, 6).forEach(product => {
+      expect(screen.getByText(product.name)).toBeTruthy();
+    });
+  });
 });
