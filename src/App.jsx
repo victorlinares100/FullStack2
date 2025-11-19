@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import NavBar from './components/organisms/Navbar';
 import Home from './pages/Home';
 import Products from './pages/Products';
@@ -13,8 +13,16 @@ import Carrito from './pages/carrito';
 import Footer from './components/organisms/Footer';
 import { initAdmin } from './data/UserAdmin';
 import HomeAdmin from './pages/Admin';
+import ProductsAdmin from './pages/ProductsAdmin';
 
 function App() {
+
+  const location = useLocation();
+
+  // Detectar rutas de administrador
+  const isAdmin =
+    location.pathname.startsWith("/admin") ||
+    location.pathname.startsWith("/productosAdmin");
 
   useEffect(() => {
     initAdmin();
@@ -22,8 +30,11 @@ function App() {
 
   return (
     <div className="app-container">
-      <NavBar />
-      <main style={{ flex: 1, marginTop: "80px" }}>
+
+      {/* No mostrar navbar en admin */}
+      {!isAdmin && <NavBar />}
+
+      <main style={{ flex: 1, marginTop: isAdmin ? 0 : "80px" }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
@@ -34,10 +45,15 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/carrito" element={<Carrito />} />
-          <Route path="/admin" element={<HomeAdmin/>} />
+
+          {/* Admin */}
+          <Route path="/admin" element={<HomeAdmin />} />
+          <Route path="/productosAdmin" element={<ProductsAdmin />} />
         </Routes>
       </main>
-      <Footer />
+
+      {/* No mostrar footer en admin */}
+      {!isAdmin && <Footer />}
     </div>
   );
 }
