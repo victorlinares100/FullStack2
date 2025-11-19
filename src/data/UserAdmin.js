@@ -1,7 +1,6 @@
 export function initAdmin() {
   const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-  // Si ya existe un admin, no crearlo otra vez
   const existeAdmin = usuarios.find(u => u.correo === "admin@admin.com");
   if (existeAdmin) return;
 

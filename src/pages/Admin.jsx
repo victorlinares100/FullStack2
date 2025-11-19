@@ -1,15 +1,25 @@
 import React from "react";
-import AdminLayout from "../components/admin/AdminLayout";
+import "../styles/admin.css";
+import { Link } from "react-router-dom";
 
-function HomeAdmin() {
+export default function HomeAdmin() {
   return (
-    <AdminLayout>
-      <h1 className="text-3xl font-bold mb-4">Bienvenido al Panel de Administración</h1>
-      <p className="text-gray-700">
-        Desde aquí puedes administrar productos, usuarios y más.
-      </p>
-    </AdminLayout>
+    <div className="admin-layout">
+      
+      <aside className="admin-sidebar">
+        <h2>ADMIN</h2>
+        <Link className="admin-link" to="/admin">Dashboard</Link>
+        <Link className="admin-link" to="/productosAdmin">Productos</Link>
+      </aside>
+
+      <main className="admin-content">
+        <h1 className="admin-title">Bienvenido al Panel de Administración</h1>
+
+        <div className="admin-card">
+          <p>Gestiona productos, usuarios y el contenido del sitio.</p>
+        </div>
+      </main>
+
+    </div>
   );
 }
-
-export default HomeAdmin;
