@@ -32,12 +32,14 @@ function Login() {
 
     setMensaje({ tipo: "success", texto: "¡Inicio de sesión exitoso!" });
 
-    // Limpiar formulario
+    if (usuario.rol === "admin") {
+      navigate("/admin");
+    } else {
+      navigate("/");
+    }
+
     setCorreo("");
     setPassword("");
-
-    // Redirigir al Home
-    navigate("/");
   };
 
   return (

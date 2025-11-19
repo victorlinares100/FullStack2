@@ -1,5 +1,4 @@
-// src/App.jsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/organisms/Navbar';
 import Home from './pages/Home';
@@ -10,11 +9,17 @@ import Contacto from './pages/Contacto';
 import Registro from './pages/Registro';
 import Login from './pages/Login';
 import Blog from './pages/Blog';
-import Footer from './components/organisms/Footer';
 import Carrito from './pages/carrito';
-
+import Footer from './components/organisms/Footer';
+import { initAdmin } from './data/UserAdmin';
+import HomeAdmin from './pages/Admin';
 
 function App() {
+
+  useEffect(() => {
+    initAdmin();
+  }, []);
+
   return (
     <div className="app-container">
       <NavBar />
@@ -29,6 +34,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/carrito" element={<Carrito />} />
+          <Route path="/admin" element={<HomeAdmin/>} />
         </Routes>
       </main>
       <Footer />
