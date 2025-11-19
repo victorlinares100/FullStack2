@@ -1,32 +1,33 @@
-// src/components/atoms/Input.jsx
+// src/components/molecules/FormInput.jsx
 import React from "react";
+import { Form } from "react-bootstrap";
 
-const Input = ({ type = "text", placeholder = "", name = "", value = "", onChange = () => { }, required = false, autoComplete = "", className = "",disabled = false, ...props  }) => {
-    if (type === "textarea") {
-        return (
-            <textarea name={name} value={value} onChange={onChange} placeholder={placeholder} required={required} autoComplete={autoComplete} disabled={disabled}
-                className={`w-full px-4 py-2.5 text-sm text-gray-900
-                            border border-gray-300 rounded-lg
-                            focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                            outline-none transition-all resize-none
-                            placeholder:text-gray-400
-                            ${disabled ? "bg-gray-50 cursor-not-allowed text-gray-500" : ""} ${className} `}
-                {...props}
-            />
-        );
-    }
+// 💡 Agrega 'name' a los props.
+function Input({ id, label, type = "text", as = "input", rows, value, onChange, name }) {
+  // Manejo especial para inputs de archivo (file)
+  const controlProps = type === "file" 
+    ? { onChange, type, required: true } // No se le pasa 'value' ni 'as'
+    : {
+        as: as,
+        type: type,
+        rows: rows,
+        // 💡 CRÍTICO: Asegúrate de que 'value' sea una cadena, si no, usa ''.
+        // Esto previene errores de "uncontrolled input" en React.
+        value: value || '', 
+        onChange: onChange,
+        required: true // Mantener el required
+      };
 
-    return (
-        <input type={type} name={name} value={value} onChange={onChange} placeholder={placeholder} required={required} autoComplete={autoComplete}disabled={disabled}
-            className={`w-full px-4 py-2.5 text-sm text-gray-900
-                        border border-gray-300 rounded-lg
-                        focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                        outline-none transition-all
-                        placeholder:text-gray-400
-                        ${disabled ? "bg-gray-50 cursor-not-allowed text-gray-500" : ""} ${className} `}
-            {...props}
-        />
-    );
-};
+  return (
+    <Form.Group controlId={id} className="mb-3">
+      <Form.Label>{label}</Form.Label>
+      <Form.Control
+        {...controlProps}
+        // 💡 CRÍTICO: Agrega el atributo name aquí.
+        name={name} 
+      />
+    </Form.Group>
+  );
+}
 
 export default Input;

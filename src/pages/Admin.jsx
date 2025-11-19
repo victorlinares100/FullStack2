@@ -7,9 +7,10 @@ export default function HomeAdmin() {
     <div className="admin-layout">
       
       <aside className="admin-sidebar">
-        <h2>ADMIN</h2>
+        <h2>ADMINISTRADOR</h2>
         <Link className="admin-link" to="/admin">Dashboard</Link>
         <Link className="admin-link" to="/productosAdmin">Productos</Link>
+        <Link className="admin-link" to="/">Salir</Link>
       </aside>
 
       <main className="admin-content">
