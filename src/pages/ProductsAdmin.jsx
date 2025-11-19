@@ -1,11 +1,10 @@
-// src/pages/ProductsAdmin.jsx
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import Section from "../components/templates/Section"; 
 import CreateModal from "../components/organisms/CreateModel";
 import Button from "../components/atoms/Button";
 import { productsData } from "../data/ProductsData";
 import { generarMensaje } from "../utils/GenerarMensaje"; 
-
 
 const productColumns = ["ID", "Nombre", "Precio", "Acciones"];
 
@@ -15,7 +14,9 @@ const createInputs = [
 ];
 
 function ProductsAdmin() {
-    // Usamos el estado pageData para alimentar Section
+
+    const navigate = useNavigate();
+
     const [pageData, setPageData] = useState(productsData); 
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,7 +47,6 @@ function ProductsAdmin() {
             const tableItem = findTableItem(updatedData);
             if (tableItem) {
                 tableItem.data = dataWithActions;
-                // Si la tabla necesita las columnas, las podemos asegurar aquí
                 tableItem.columns = productColumns; 
             }
             return updatedData;
@@ -110,9 +110,8 @@ function ProductsAdmin() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 p-6"> {/* Aplicamos el fondo y padding de la página */}
+        <div className="min-h-screen bg-gray-50 p-6">
             
-            {/* Loader */}
             {loading && (
                 <div className="fixed inset-0 bg-white bg-opacity-75 flex items-center justify-center z-50">
                     <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-blue-600"></div>
@@ -120,13 +119,22 @@ function ProductsAdmin() {
             )}
 
             <div className="container mx-auto">
-                {/* 🚀 Contenedor de Encabezado y Botón (Diseño recuperado) */}
-                <header className="mb-8 text-center">
+                <header className="mb-12 text-center">
                     <h1 className="text-3xl font-bold text-gray-800 mb-2">Gestión de Productos</h1>
                     <p className="text-gray-500">Aquí puedes crear, editar y eliminar los productos de tu tienda.</p>
                 </header>
 
-                <div className="flex justify-end mb-6">
+                <div className="flex justify-end space-x-4 mb-8">
+                      <Button
+                          text="Salir"
+                          onClick={() => {
+                              navigate('/admin'); 
+                          }}
+                          className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded-lg font-medium shadow-md active:scale-95 transition-all"
+                      >
+                          Salir
+                      </Button>
+                    
                     <Button
                         text="Crear Producto"
                         onClick={() => {
@@ -139,8 +147,6 @@ function ProductsAdmin() {
                     </Button>
                 </div>
                 
-                {/* 🚀 Renderizar el contenido usando el template Section */}
-                {/* Si loading es true, mostramos un spinner dentro de un div con el estilo de la tarjeta */}
                 {loading ? (
                     <div className="bg-white p-6 rounded-xl shadow-lg flex justify-center py-10">
                         <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-600"></div>
@@ -149,8 +155,6 @@ function ProductsAdmin() {
                     <Section content={pageData} className="" />
                 )}
             </div>
-
-            {/* Modal de Creación/Edición */}
             <CreateModal
                 isOpen={isModalOpen}
                 onClose={() => {
