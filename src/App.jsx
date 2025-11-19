@@ -23,7 +23,7 @@ function App() {
   return (
     <div className="app-container">
       <NavBar />
-      <main style={{ flex: 1 }}>
+      <main style={{ flex: 1, marginTop: "80px" }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
