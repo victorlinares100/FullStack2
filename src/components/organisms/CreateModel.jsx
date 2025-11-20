@@ -1,9 +1,9 @@
 // src/components/organisms/CreateModal.jsx
 import React, { useState, useEffect } from 'react';
 import { Modal, Form } from 'react-bootstrap';
-import Input from '../atoms/Input'; 
 import InputFile from '../atoms/InputFile';
 import Button from '../atoms/Button';
+import { uploadToImgBB } from '../../utils/uploadImage'; // ⬅ IMPORTANTE
 
 function CreateModal({ 
   isOpen, 
@@ -16,6 +16,7 @@ function CreateModal({
   initialData 
 }) {
   const [formData, setFormData] = useState({});
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   useEffect(() => {
     const initialFormState = {};
@@ -27,12 +28,33 @@ function CreateModal({
   }, [initialData, inputsConfig, isOpen]);
 
   const handleChange = (e) => {
-    const { name, value, type, files } = e.target;
-
+    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: type === 'file' ? files[0] : value,
+      [name]: value,
     }));
+  };
+
+  // ⬅ AQUI SUBIMOS LA IMAGEN A IMGBB
+  const handleImageUpload = async (e, inputName) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploadingImage(true);
+
+    try {
+      const { url, preview } = await uploadToImgBB(file);
+
+      setFormData(prev => ({
+        ...prev,
+        [inputName]: url,                 // ⬅ GUARDAMOS LA URL
+        [`${inputName}Preview`]: preview, // ⬅ GUARDAMOS EL PREVIEW
+      }));
+    } catch (err) {
+      alert("Error al subir imagen: " + err.message);
+    } finally {
+      setUploadingImage(false);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -49,6 +71,7 @@ function CreateModal({
 
         <Modal.Body>
           {inputsConfig.map((input) => {
+
             if (input.type === "file") {
               return (
                 <div key={input.name} className="mb-4">
@@ -57,56 +80,42 @@ function CreateModal({
                   </label>
 
                   <InputFile
-                    onChange={(e) => {
-                      const file = e.target.files[0];
-
-                      setFormData(prev => ({
-                        ...prev,
-                        [input.name]: file,
-                      }));
-
-                      // Crear preview
-                      if (file) {
-                        const reader = new FileReader();
-                        reader.onload = () => {
-                          setFormData(prev => ({
-                            ...prev,
-                            [`${input.name}Preview`]: reader.result,
-                          }));
-                        };
-                        reader.readAsDataURL(file);
-                      }
-                    }}
-                    preview={formData[`${input.name}Preview`] || null}
+                    onChange={(e) => handleImageUpload(e, input.name)}
+                    disabled={uploadingImage}
+                    preview={formData[`${input.name}Preview`] || formData[input.name] || null}
                   />
+
+                  {uploadingImage && (
+                    <p className="text-xs text-blue-600 mt-1">Subiendo imagen...</p>
+                  )}
                 </div>
               );
             }
 
             return (
-              <Input
-                key={input.name}
-                id={input.name}
-                label={input.placeholder}
-                type={input.type}
-                as={input.type === 'textarea' ? 'textarea' : 'input'}
-                rows={input.type === 'textarea' ? 3 : undefined}
-                value={formData[input.name] || ''}
-                onChange={handleChange}
-                name={input.name}
-                className={input.className}
-                required={input.required}
-              />
+              <Form.Group key={input.name} className="mb-3">
+                <Form.Label>{input.placeholder}</Form.Label>
+
+                <Form.Control
+                  name={input.name}
+                  type={input.type}
+                  as={input.type === "textarea" ? "textarea" : "input"}
+                  rows={input.type === "textarea" ? 3 : undefined}
+                  value={formData[input.name] || ""}
+                  onChange={handleChange}
+                  required={input.required}
+                />
+              </Form.Group>
             );
           })}
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={onClose}>
+          <Button variant="secondary" onClick={onClose} disabled={uploadingImage}>
             Cancelar
           </Button>
 
-          <Button type="submit" disabled={loading}>
+          <Button type="submit" disabled={loading || uploadingImage}>
             {loading ? "Guardando..." : submitText}
           </Button>
         </Modal.Footer>
