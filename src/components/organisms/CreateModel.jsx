@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Form } from 'react-bootstrap';
 import InputFile from '../atoms/InputFile';
 import Button from '../atoms/Button';
-import { uploadToImgBB } from '../../utils/uploadImage'; // ⬅ IMPORTANTE
+import { uploadToImgBB } from '../../utils/uploadImage';
 
 function CreateModal({ 
   isOpen, 
@@ -35,7 +35,6 @@ function CreateModal({
     }));
   };
 
-  // ⬅ AQUI SUBIMOS LA IMAGEN A IMGBB
   const handleImageUpload = async (e, inputName) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -47,8 +46,8 @@ function CreateModal({
 
       setFormData(prev => ({
         ...prev,
-        [inputName]: url,                 // ⬅ GUARDAMOS LA URL
-        [`${inputName}Preview`]: preview, // ⬅ GUARDAMOS EL PREVIEW
+        [inputName]: url,                
+        [`${inputName}Preview`]: preview,
       }));
     } catch (err) {
       alert("Error al subir imagen: " + err.message);

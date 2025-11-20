@@ -5,7 +5,7 @@ import CreateModal from "../components/organisms/CreateModel";
 import Button from "../components/atoms/Button";
 import { productsData } from "../data/ProductsData";
 import { generarMensaje } from "../utils/GenerarMensaje"; 
-import { uploadToImgBB } from "../utils/uploadImage";
+
 
 const productColumns = ["ID", "Nombre", "Precio", "Logo", "Acciones"];
 
@@ -46,7 +46,6 @@ function ProductsAdmin() {
         }));
 
 
-        // Actualizamos la data en pageData
         setPageData(currentData => {
             const updatedData = [...currentData];
             const tableItem = findTableItem(updatedData);
@@ -91,7 +90,6 @@ function ProductsAdmin() {
     try {
         let imageUrl = editingProducto?.imagen || null;
 
-    // Si CreateModal ya subió la imagen, formData.imagen será una URL válida
     if (formData.imagen && typeof formData.imagen === "string") {
         imageUrl = formData.imagen;
     }
@@ -99,7 +97,6 @@ function ProductsAdmin() {
         const storedProducts = JSON.parse(localStorage.getItem("productos")) || [];
         let updated;
 
-        // Mezclamos los datos
         const dataToSave = {
             ...formData,
             imagen: imageUrl,
