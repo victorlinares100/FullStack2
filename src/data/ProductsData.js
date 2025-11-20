@@ -19,7 +19,7 @@ export const productsData = [
   {
     type: "table",
     title: "Productos Activos",
-    columns: ["ID", "Nombre", "Precio", "Acciones"],
+    columns: ["ID", "Nombre", "Precio", "Logo", "Acciones"],
     data: [],
     service: "productos",
     className: "my-8"

@@ -5,12 +5,15 @@ import CreateModal from "../components/organisms/CreateModel";
 import Button from "../components/atoms/Button";
 import { productsData } from "../data/ProductsData";
 import { generarMensaje } from "../utils/GenerarMensaje"; 
+import { uploadToImgBB } from "../utils/uploadImage";
 
 const productColumns = ["ID", "Nombre", "Precio", "Acciones"];
 
 const createInputs = [
+    
     { name: "nombre", type: "text", placeholder: "Nombre del producto", required: true },
     { name: "precio", type: "number", placeholder: "Precio", required: true },
+    { name: "imagen", type: "file" },
 ];
 
 function ProductsAdmin() {
@@ -34,12 +37,14 @@ function ProductsAdmin() {
         const storedProducts = JSON.parse(localStorage.getItem("productos")) || [];
         
         const dataWithActions = storedProducts.map(p => ({
-            id: p.id,
-            Nombre: p.nombre, 
-            Precio: `$${parseFloat(p.precio).toFixed(2)}`, 
-            onEdit: () => abrirEdicion(p),
-            onDelete: () => eliminarProducto(p.id),
+          id: p.id,
+          Nombre: p.nombre,
+          Precio: `$${parseFloat(p.precio).toFixed(2)}`,
+          Logo: p.imagen ? <img src={p.imagen} className="w-12 h-12 object-cover rounded" /> : "Sin imagen",
+          onEdit: () => abrirEdicion(p),
+          onDelete: () => eliminarProducto(p.id),
         }));
+
 
         // Actualizamos la data en pageData
         setPageData(currentData => {
@@ -80,34 +85,49 @@ function ProductsAdmin() {
     };
 
     const handleCreate = async (formData) => {
-        setSubmitLoading(true);
-        await new Promise(resolve => setTimeout(resolve, 500)); 
+    setSubmitLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    try {
+        let imageUrl = editingProducto?.imagen || null;
+
+        // Si viene una imagen nueva, la subimos
+        if (formData.imagen && formData.imagen instanceof File) {
+            const upload = await uploadToImgBB(formData.imagen);
+            imageUrl = upload.url;
+        }
 
         const storedProducts = JSON.parse(localStorage.getItem("productos")) || [];
         let updated;
-        try {
-            if (editingProducto) {
-                updated = storedProducts.map(p =>
-                    p.id === editingProducto.id ? { ...p, ...formData } : p
-                );
-                generarMensaje("Producto actualizado con éxito!", "success");
-            } else {
-                updated = [...storedProducts, { id: Date.now(), ...formData }];
-                generarMensaje("Producto creado con éxito!", "success");
-            }
-        
-            guardarEnStorage(updated);
-            cargarProductos();
-        } catch(error) {
-            generarMensaje("Ocurrió un error al guardar.", "warning");
-            console.error(error);
-        } finally {
-            setEditingProducto(null);
-            setIsModalOpen(false);
-            setSubmitLoading(false);
+
+        // Mezclamos los datos
+        const dataToSave = {
+            ...formData,
+            imagen: imageUrl,
+        };
+
+        if (editingProducto) {
+            updated = storedProducts.map(p =>
+                p.id === editingProducto.id ? { ...p, ...dataToSave } : p
+            );
+            generarMensaje("Producto actualizado con éxito!", "success");
+        } else {
+            updated = [...storedProducts, { id: Date.now(), ...dataToSave }];
+            generarMensaje("Producto creado con éxito!", "success");
         }
 
-    };
+        guardarEnStorage(updated);
+        cargarProductos();
+
+    } catch (error) {
+        generarMensaje("Ocurrió un error al guardar.", "warning");
+        console.error(error);
+    } finally {
+        setEditingProducto(null);
+        setIsModalOpen(false);
+        setSubmitLoading(false);
+    }
+};
 
     return (
         <div className="min-h-screen bg-gray-50 p-6">
