@@ -7,7 +7,7 @@ import { productsData } from "../data/ProductsData";
 import { generarMensaje } from "../utils/GenerarMensaje"; 
 import { uploadToImgBB } from "../utils/uploadImage";
 
-const productColumns = ["ID", "Nombre", "Precio", "Acciones"];
+const productColumns = ["ID", "Nombre", "Precio", "Logo", "Acciones"];
 
 const createInputs = [
     
@@ -91,11 +91,10 @@ function ProductsAdmin() {
     try {
         let imageUrl = editingProducto?.imagen || null;
 
-        // Si viene una imagen nueva, la subimos
-        if (formData.imagen && formData.imagen instanceof File) {
-            const upload = await uploadToImgBB(formData.imagen);
-            imageUrl = upload.url;
-        }
+    // Si CreateModal ya subió la imagen, formData.imagen será una URL válida
+    if (formData.imagen && typeof formData.imagen === "string") {
+        imageUrl = formData.imagen;
+    }
 
         const storedProducts = JSON.parse(localStorage.getItem("productos")) || [];
         let updated;
