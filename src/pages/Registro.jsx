@@ -3,6 +3,7 @@ import { Container, Form, Button } from "react-bootstrap";
 import Input from "../components/molecules/Input";
 import Mensaje from "../components/atoms/Mensaje";
 import Text from "../components/atoms/Text";
+import usuarioService from "../services/usuarioService";
 
 function Registro() {
   const [nombre, setNombre] = useState("");
@@ -21,10 +22,9 @@ function Registro() {
     "Biobío": ["Concepción", "Talcahuano", "Los Ángeles"],
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validación básica
     if (!nombre || !correo || !password || !confirmarPassword || !region || !comuna) {
       setMensaje({ tipo: "danger", texto: "Por favor, complete todos los campos." });
       return;
@@ -34,35 +34,45 @@ function Registro() {
       setMensaje({ tipo: "danger", texto: "Las contraseñas no coinciden." });
       return;
     }
+    const nuevoUsuario = { 
+      nombre: nombre, 
+      correo: correo, 
+      contrasena: password,
+      region: region, 
+      comuna: comuna 
+    };
 
-    // Guardar en localStorage
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-    const existe = usuarios.find((u) => u.correo === correo);
+    try {
+       
+      const data = await usuarioService.registrar(nuevoUsuario);
+      
+      
+      setMensaje({ tipo: "success", texto: typeof data === 'string' ? data : (data.mensaje || "Registro exitoso.") });
 
-    if (existe) {
-      setMensaje({ tipo: "danger", texto: "El correo ya está registrado." });
-      return;
+    
+      setNombre("");
+      setCorreo("");
+      setPassword("");
+      setConfirmarPassword("");
+      setRegion("");
+      setComuna("");
+
+    } catch (error) {
+      console.error("Error al registrar usuario:", error);
+
+      if (error.response && error.response.data){
+        const mensajeError = typeof error.response.data === 'string'
+          ? error.response.data
+          : JSON.stringify(error.response.data);
+        setMensaje({ tipo: "danger", texto: `Error: ${mensajeError}` });
+      } else {
+        setMensaje({ tipo: "danger", texto: "No se pudo conectar con el servidor." });
+      }
     }
-
-    const nuevoUsuario = { nombre, correo, password, region, comuna };
-    usuarios.push(nuevoUsuario);
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
-    setMensaje({ tipo: "success", texto: "¡Usuario registrado correctamente!" });
-
-    // Limpiar campos
-    setNombre("");
-    setCorreo("");
-    setPassword("");
-    setConfirmarPassword("");
-    setRegion("");
-    setComuna("");
   };
 
   return (
     <>
-      
-
       <Container className="my-5">
         <Text variant="h2">Registro De Usuario</Text>
 
@@ -150,8 +160,7 @@ function Registro() {
         <div className="mt-3">
           <a href="/login">¿Ya tienes cuenta? Inicia sesión aquí</a>
         </div>
-      </Container>
-
+      </Container>  
     </>
   );
 }

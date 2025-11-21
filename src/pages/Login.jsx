@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Input from "../components/molecules/Input";
 import Text from "../components/atoms/Text";
 import Mensaje from "../components/atoms/Mensaje";
+import usuarioService from "../services/usuarioService";  
 
 function Login() {
   const [correo, setCorreo] = useState("");
@@ -12,36 +13,39 @@ function Login() {
 
   const navigate = useNavigate();
 
- 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-    const usuario = usuarios.find(
-      (u) => u.correo === correo && u.password === password
-    );
 
-    if (!usuario) {
-      setMensaje({ tipo: "danger", texto: "Correo o contraseña incorrectos." });
+    if (!correo || !password) {
+      setMensaje({ tipo: "danger", texto: "Por favor, ingrese correo y contraseña" });
       return;
     }
 
-    // Guardar usuario activo
-    localStorage.setItem("usuarioActivo", JSON.stringify(usuario));
+    const credenciales ={
+      correo: correo,
+      contrasena: password
+    };
 
-    setMensaje({ tipo: "success", texto: "¡Inicio de sesión exitoso!" });
+    try{
+    const usuarioRecibido = await usuarioService.login(credenciales);
+    setMensaje({ tipo: "success", texto: "Inicio de sesión exitoso" });
 
-    if (usuario.rol === "admin") {
-      navigate("/admin");
-    } else {
-      navigate("/");
+    setTimeout(() => {
+      if (usuarioRecibido.rol && usuarioRecibido.rol.toUpperCase() === "ADMIN") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+    }, 1500);
+    } catch (error){
+      if (error.response && error.response.status === 401) {
+            setMensaje({ tipo: "danger", texto: "Correo o contraseña incorrectos." });
+        } else {
+            setMensaje({ tipo: "danger", texto: "No se pudo conectar con el servidor." });
+        }
     }
-
-    setCorreo("");
-    setPassword("");
   };
-
   return (
     <Container className="my-5">
       <Text variant="h2">Iniciar Sesión</Text>
@@ -84,3 +88,5 @@ function Login() {
 }
 
 export default Login;
+//pendiente arreglar login para que se pueda ingresar con los datos del usuario registrado
+// volver a hacer funcional las tablas comuna y region
