@@ -35,10 +35,25 @@
 }
 
 .btn-carrito:hover {
-  background-color: #a88948; /* un dorado más oscuro */
+  background-color: #a88948;  
   color: #ffffff;
 }
-*/
+
+ 
+.navbar-custom .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.navbar-custom .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-custom .btn-outline-light:hover {
+  background-color: var(--secondary);
+  border-color: var(--secondary);
+  color: #fff;
+}
+
 .btn.btn-primary.d-inline-flex.align-items-center {
   background-color: #a88948;
   color: #ffffff;
@@ -173,6 +188,24 @@ button:hover { background-color: #1565c0; }
 }
 
 .centrar-texto { text-align: center; }
-.cards-row .col-card { margin-bottom: 2rem; }  
+.cards-row .col-card { margin-bottom: 2rem; }
+
+ 
+.no-caret .dropdown-toggle::after {
+  display: none;
+}
+
+ 
+.no-caret .dropdown-toggle {
+  padding-top: 0;
+  padding-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-menu-end {
+  right: 0 !important;
+  left: auto !important;
+}
 
 

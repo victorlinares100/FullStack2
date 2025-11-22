@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Input from "../components/molecules/Input";
 import Mensaje from "../components/atoms/Mensaje";
 import Text from "../components/atoms/Text";
 import usuarioService from "../services/usuarioService";
 import { validateRegistro } from "../utils/validators";
 import '../styles/register.css';
+import logo from "../assets/img/aurea_logo_con.webp";
 
 function Registro() {
   const [nombre, setNombre] = useState("");
@@ -104,6 +106,12 @@ const comunasPorRegion = {
   return (
     <>
       <Container className="my-5">
+        <div className="text-center mb-4">
+          <Link to="/">
+            <img src={logo} alt="Logo Aurea" style={{ maxWidth: "150px", cursor: "pointer" }} />
+          </Link>
+        </div>
+        
         <Text variant="h2">Registro De Usuario</Text>
 
         <Form onSubmit={handleSubmit} noValidate>
