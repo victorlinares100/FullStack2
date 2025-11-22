@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+ import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import NavBar from './components/organisms/Navbar';
 import Home from './pages/Home';
@@ -14,10 +14,14 @@ import Footer from './components/organisms/Footer';
 import { initAdmin } from './data/UserAdmin';
 import HomeAdmin from './pages/Admin';
 import ProductsAdmin from './pages/ProductsAdmin';
+import { Nav } from 'react-bootstrap';
 
 function App() {
 
   const location = useLocation();
+
+  // Rutas donde NO queremos mostrar el Navbar
+  const hideNavbar = ["/registro", "/login"].includes(location.pathname.toLowerCase());
 
   // Detectar rutas de administrador
   const isAdmin =
@@ -25,14 +29,14 @@ function App() {
     location.pathname.startsWith("/productosAdmin");
 
   useEffect(() => {
-    initAdmin();
+    initAdmin();  
   }, []);
 
   return (
     <div className="app-container">
 
-      {/* No mostrar navbar en admin */}
-      {!isAdmin && <NavBar />}
+      {/* Mostrar navbar solo si no es admin Y no está en la lista de ocultos */}
+      {!isAdmin && !hideNavbar && <NavBar />}
 
       <main style={{ flex: 1, marginTop: isAdmin ? 0 : "80px" }}>
         <Routes>

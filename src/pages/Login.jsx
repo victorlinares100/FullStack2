@@ -92,7 +92,7 @@ function Login() {
       </Form>
 
       <div className="mt-3">
-        <a href="/Registro">¿No tienes cuenta? Regístrate aquí</a>
+        <a href="/registro">¿No tienes cuenta? Regístrate aquí</a>
       </div>
     </Container>
   );
