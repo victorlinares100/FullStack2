@@ -38,7 +38,7 @@ function App() {
       {/* Mostrar navbar solo si no es admin Y no está en la lista de ocultos */}
       {!isAdmin && !hideNavbar && <NavBar />}
 
-      <main style={{ flex: 1, marginTop: isAdmin ? 0 : "80px" }}>
+      <main style={{ flex: 1 }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />

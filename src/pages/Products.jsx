@@ -7,8 +7,8 @@ import Text from '../components/atoms/Text';
 function Products() {
   return (
     <Container className="my-5">
-      <Text variant="h2">Productos</Text>
-      <Row>
+      <Text variant="h2" className="text-center mb-4">Productos</Text>
+      <Row className="justify-content-center">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
