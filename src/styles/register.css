@@ -1,15 +1,18 @@
-/* Asegúrate de que no haya errores de sintaxis arriba de esta línea */
+:root {
+    --gold-primary: #C5A25D;
+    --gold-dark: #a88948;
+    --gold-light: #f9f1d8;
+    --dark-blue: #0A2540;
+}
 
 .register-link {
     text-align: center;
     padding: 15px;
- 
- 
     margin-top: 20px;
 }
 
 .register-link a {
-    color: #0d6efd;
+    color: var(--gold-primary);
     text-decoration: none;
     font-weight: 600;
     font-size: 1.1rem;
@@ -17,7 +20,7 @@
 }
 
 .register-link a:hover {
-    color: #0a58ca;
+    color: var(--gold-dark);
     text-decoration: underline;
 }
 
@@ -26,7 +29,7 @@
     padding: 10px;
     font-size: 1.2rem;
     font-weight: 600;
-    background-color: #0d6efd;
+    background-color: var(--gold-primary);
     color: white;
     border: none;
     border-radius: 5px;
@@ -35,11 +38,30 @@
 }
 
 .register-button:hover {
-    background-color: #0a58ca;
+    background-color: var(--gold-dark);
+}
+
+ 
+.form-control:focus {
+    border-color: var(--gold-primary);
+    box-shadow: 0 0 0 0.25rem rgba(197, 162, 93, 0.25);
+}
+
+.form-label {
+    color: var(--dark-blue);
+    font-weight: 500;
+}
+
+ 
+h2 {
+    color: var(--gold-primary);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
 }
 
 .alert .btn-close {
-    background-color: transparent !important; /* Quita el azul */
+    background-color: transparent !important; 
     border: none;
     float: left;
     font-size: 1.5rem;
@@ -52,7 +74,7 @@
     cursor: pointer;
 }
     
-/* Dibujamos la X manualmente porque falta el icono */
+ 
 .alert .btn-close::before {
     content: "×"; 
 }
@@ -62,10 +84,8 @@
 }
 
 .alert {
-    /* !important obliga al navegador a usar este margen sí o sí */
     margin-bottom: 30px !important; 
-    
-    /* Asegura que la alerta ocupe su propio espacio y empuje lo de abajo */
+ 
     display: block; 
     position: relative;
 }

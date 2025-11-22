@@ -18,19 +18,11 @@ function Home() {
   return (
     <>
       <Container className="py-4"> 
-        {/* Links de Sesión */}
-        <div className="d-flex justify-content-end mb-4"> 
-          <Button variant="outline-dark" href="/login" className="me-2">
-            Iniciar sesión
-          </Button>
-          <Button variant="dark" href="/registro">
-            Registrarse
-          </Button>
-        </div>
+
 
         <section>       
           <div className="section-spacing mb-5">
-            <Carousel>
+            <Carousel className="carousel-limit-height" interval={3000} fade>
               {carouselItems.map(item => (
                 <Carousel.Item key={item.id}>                 
                   <img

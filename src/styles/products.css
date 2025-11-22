@@ -10,7 +10,7 @@
 
 /* Tarjeta individual */
 .product-card {
-  width: 18rem; /* Mantener tamaño uniforme */
+  width: 50rem; /* Mantener tamaño uniforme */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
