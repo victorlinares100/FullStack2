@@ -85,7 +85,28 @@ function CreateModalProductos({
                     disabled={uploadingImage}
                     preview={formData[`${input.name}Preview`] || null}
                   />
-                  {uploadingImage && <p className="text-xs text-blue-600 mt-1">Subiendo imagen...</p>}
+                  {formData[`${input.name}Preview`] && (
+                    <div
+                      style={{
+                        width: 120,
+                        height: 120,
+                        marginTop: 8,
+                        overflow: "hidden",
+                        borderRadius: 8,
+                        border: "1px solid #ccc",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <img
+                        src={formData[`${input.name}Preview`]}
+                        alt="Previsualización"
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      />
+                    </div>
+                  )}
+                  {uploadingImage && <p style={{ fontSize: 12, color: "#2563EB", marginTop: 4 }}>Subiendo imagen...</p>}
                 </div>
               );
             }
@@ -126,8 +147,18 @@ function CreateModalProductos({
           })}
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={onClose} disabled={uploadingImage}>Cancelar</Button>
-          <Button type="submit" disabled={loading || uploadingImage}>
+          <Button
+            onClick={onClose}
+            disabled={uploadingImage}
+            style={{ backgroundColor: "#6B7280", borderColor: "#6B7280", color: "#fff" }}
+          >
+            Cancelar
+          </Button>
+          <Button
+            type="submit"
+            disabled={loading || uploadingImage}
+            style={{ backgroundColor: "#2563EB", borderColor: "#2563EB", color: "#fff" }}
+          >
             {loading ? "Guardando..." : submitText}
           </Button>
         </Modal.Footer>
