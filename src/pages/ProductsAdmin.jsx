@@ -1,203 +1,158 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
-import Section from "../components/templates/Section"; 
-import CreateModal from "../components/organisms/CreateModel";
+import { useNavigate } from "react-router-dom";
+import Section from "../components/templates/Section";
 import Button from "../components/atoms/Button";
-import { productsData } from "../data/ProductsData";
-import { generarMensaje } from "../utils/GenerarMensaje"; 
+import productoService from "../services/productoService";
+import { generarMensaje } from "../utils/GenerarMensaje";
+import CreateModalProductos from "../components/organisms/CreateModalProductos";
 
-
-const productColumns = ["ID", "Nombre", "Precio", "Logo", "Acciones"];
-
-const createInputs = [
-    
-    { name: "nombre", type: "text", placeholder: "Nombre del producto", required: true },
-    { name: "precio", type: "number", placeholder: "Precio", required: true },
-    { name: "imagen", type: "file" },
-];
+const productColumns = ["ID", "Nombre", "Precio", "Stock", "Categoría", "Marca", "Talla", "Logo", "Acciones"];
 
 function ProductsAdmin() {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  const [pageData, setPageData] = useState([{ title: "Productos", service: "productos", columns: productColumns, data: [] }]);
+  const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [editingProducto, setEditingProducto] = useState(null);
 
-    const [pageData, setPageData] = useState(productsData); 
-    const [loading, setLoading] = useState(true);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [submitLoading, setSubmitLoading] = useState(false);
-    const [editingProducto, setEditingProducto] = useState(null);
+  const [categorias, setCategorias] = useState([]);
+  const [marcas, setMarcas] = useState([]);
+  const [tallas, setTallas] = useState([]);
 
-    useEffect(() => {
-        cargarProductos();
-    }, []);
+  useEffect(() => {
+    loadProductos();
+    loadOptions();
+  }, []);
 
-    const findTableItem = (data) => data.find(i => i.service === "productos");
-
-    const cargarProductos = () => {
-        setLoading(true);
-        const storedProducts = JSON.parse(localStorage.getItem("productos")) || [];
-        
-        const dataWithActions = storedProducts.map(p => ({
-          id: p.id,
-          Nombre: p.nombre,
-          Precio: `$${parseFloat(p.precio).toFixed(2)}`,
-          Logo: p.imagen ? (
-            <img
-                src={p.imagen}
-                alt=""
-                style={{
-                width: "60px",
-                height: "60px",
-                objectFit: "cover",
-                borderRadius: "8px"
-                }}
-            />
-            ) : "Sin imagen",
-
-          onEdit: () => abrirEdicion(p),
-          onDelete: () => eliminarProducto(p.id),
-        }));
-
-
-        setPageData(currentData => {
-            const updatedData = [...currentData];
-            const tableItem = findTableItem(updatedData);
-            if (tableItem) {
-                tableItem.data = dataWithActions;
-                tableItem.columns = productColumns; 
-            }
-            return updatedData;
-        });
-
-        setLoading(false);
-    };
-
-    const abrirEdicion = (producto) => {
-        setEditingProducto(producto); 
-        setIsModalOpen(true);
-    };
-
-    const guardarEnStorage = (data) => {
-        localStorage.setItem("productos", JSON.stringify(data));
-    };
-
-    const eliminarProducto = (id) => {
-        if (!window.confirm("¿Quieres eliminar este producto?")) return; 
-
-        try {
-            const storedProducts = JSON.parse(localStorage.getItem("productos")) || [];
-            const updated = storedProducts.filter(p => p.id !== id);
-
-            guardarEnStorage(updated);
-            cargarProductos(); 
-            generarMensaje("Producto eliminado con éxito!", "success");
-        } catch (error) {
-            generarMensaje("Error al eliminar el producto", "warning");
-        }
-    };
-
-    const handleCreate = async (formData) => {
-    setSubmitLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 500));
-
+  const loadOptions = async () => {
     try {
-        let imageUrl = editingProducto?.imagen || null;
-
-    if (formData.imagen && typeof formData.imagen === "string") {
-        imageUrl = formData.imagen;
-    }
-
-        const storedProducts = JSON.parse(localStorage.getItem("productos")) || [];
-        let updated;
-
-        const dataToSave = {
-            ...formData,
-            imagen: imageUrl,
-        };
-
-        if (editingProducto) {
-            updated = storedProducts.map(p =>
-                p.id === editingProducto.id ? { ...p, ...dataToSave } : p
-            );
-            generarMensaje("Producto actualizado con éxito!", "success");
-        } else {
-            updated = [...storedProducts, { id: Date.now(), ...dataToSave }];
-            generarMensaje("Producto creado con éxito!", "success");
-        }
-
-        guardarEnStorage(updated);
-        cargarProductos();
-
+      const [cat, mar, tall] = await Promise.all([
+        productoService.getCategorias(),
+        productoService.getMarcas(),
+        productoService.getTallas(),
+      ]);
+      setCategorias(cat);
+      setMarcas(mar);
+      setTallas(tall);
     } catch (error) {
-        generarMensaje("Ocurrió un error al guardar.", "warning");
-        console.error(error);
-    } finally {
-        setEditingProducto(null);
-        setIsModalOpen(false);
-        setSubmitLoading(false);
+      console.error("Error al cargar opciones:", error);
     }
-};
+  };
 
-    return (
-        <div className="min-h-screen bg-gray-50 p-6">
-            
-            {loading && (
-                <div className="fixed inset-0 bg-white bg-opacity-75 flex items-center justify-center z-50">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-blue-600"></div>
-                </div>
-            )}
+  const loadProductos = async () => {
+    setLoading(true);
+    try {
+      const data = await productoService.getAll();
+      const dataWithActions = data.map((p) => ({
+        id: p.id,
+        Nombre: p.nombreProducto,
+        Precio: `$${parseFloat(p.precioProducto).toFixed(2)}`,
+        Stock: p.stock,
+        Categoría: p.categoria?.tipoCategoria || "",
+        Marca: p.marca?.nombreMarca || "",
+        Talla: p.talla?.tipoTalla || "",
+        Logo: p.imagen ? <img src={p.imagen.url} className="w-12 h-12 object-cover rounded" /> : "Sin imagen",
+        onEdit: () => openEdit(p),
+        onDelete: () => handleDelete(p.id),
+      }));
+      setPageData([{ title: "Productos", service: "productos", columns: productColumns, data: dataWithActions }]);
+    } catch (error) {
+      generarMensaje("Error al cargar productos", "warning");
+    }
+    setLoading(false);
+  };
 
-            <div className="container mx-auto">
-                <header className="mb-12 text-center">
-                    <h1 className="text-3xl font-bold text-gray-800 mb-2">Gestión de Productos</h1>
-                    <p className="text-gray-500">Aquí puedes crear, editar y eliminar los productos de tu tienda.</p>
-                </header>
+  const openEdit = (producto) => {
+    setEditingProducto(producto);
+    setIsModalOpen(true);
+  };
 
-                <div className="flex justify-end space-x-4 mb-8">
-                      <Button
-                          text="Salir"
-                          onClick={() => {
-                              navigate('/admin'); 
-                          }}
-                          className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded-lg font-medium shadow-md active:scale-95 transition-all"
-                      >
-                          Salir
-                      </Button>
-                    
-                    <Button
-                        text="Crear Producto"
-                        onClick={() => {
-                            setEditingProducto(null);
-                            setIsModalOpen(true);
-                        }}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium shadow-md active:scale-95 transition-all"
-                    >
-                        Crear Producto
-                    </Button>
-                </div>
-                
-                {loading ? (
-                    <div className="bg-white p-6 rounded-xl shadow-lg flex justify-center py-10">
-                        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-600"></div>
-                    </div>
-                ) : (
-                    <Section content={pageData} className="" />
-                )}
-            </div>
-            <CreateModal
-                isOpen={isModalOpen}
-                onClose={() => {
-                    setIsModalOpen(false);
-                    setEditingProducto(null);
-                }}
-                onSubmit={handleCreate}
-                inputsConfig={createInputs}
-                title={editingProducto ? "Editar Producto" : "Crear Nuevo Producto"}
-                submitText={editingProducto ? "Actualizar Producto" : "Crear Producto"}
-                loading={submitLoading}
-                initialData={editingProducto || {}} 
-            />
+  const handleCreateOrUpdate = async (formData) => {
+    setSubmitLoading(true);
+    try {
+      const dto = {
+        nombreProducto: formData.nombre,
+        precioProducto: parseFloat(formData.precio),
+        stock: parseInt(formData.stock),
+        categoria: formData.categoria,
+        marca: formData.marca,
+        talla: formData.talla,
+        imagenUrl: formData.imagen,
+      };
+
+      if (editingProducto) {
+        await productoService.update(editingProducto.id, dto);
+        generarMensaje("Producto actualizado con éxito!", "success");
+      } else {
+        await productoService.create(dto);
+        generarMensaje("Producto creado con éxito!", "success");
+      }
+
+      await loadProductos();
+    } catch (error) {
+      console.error(error);
+      generarMensaje("Error al guardar producto", "warning");
+    }
+    setSubmitLoading(false);
+    setEditingProducto(null);
+    setIsModalOpen(false);
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("¿Quieres eliminar este producto?")) return;
+    try {
+      await productoService.remove(id);
+      generarMensaje("Producto eliminado!", "success");
+      await loadProductos();
+    } catch (error) {
+      generarMensaje("Error al eliminar", "warning");
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 p-6">
+      {loading && (
+        <div className="fixed inset-0 bg-white bg-opacity-75 flex items-center justify-center z-50">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-blue-600"></div>
         </div>
-    );
+      )}
+
+      <div className="container mx-auto">
+        <header className="mb-12 text-center">
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">Gestión de Productos</h1>
+          <p className="text-gray-500">Crear, editar y eliminar productos desde tu base de datos.</p>
+        </header>
+
+        <div className="flex justify-end mb-8 space-x-4">
+          <Button text="Salir" onClick={() => navigate("/admin")} className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded-lg shadow-md" />
+          <Button text="Crear Producto" onClick={() => { setEditingProducto(null); setIsModalOpen(true); }} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-md" />
+        </div>
+
+        <Section content={pageData} />
+      </div>
+
+      <CreateModalProductos
+        isOpen={isModalOpen}
+        onClose={() => { setEditingProducto(null); setIsModalOpen(false); }}
+        onSubmit={handleCreateOrUpdate}
+        inputsConfig={[
+          { name: "nombre", type: "text", placeholder: "Nombre", required: true },
+          { name: "precio", type: "number", placeholder: "Precio", required: true },
+          { name: "stock", type: "number", placeholder: "Stock", required: true },
+          { name: "categoria", type: "select", placeholder: "Categoría", required: true, options: categorias },
+          { name: "marca", type: "select", placeholder: "Marca", required: true, options: marcas },
+          { name: "talla", type: "select", placeholder: "Talla", required: true, options: tallas },
+          { name: "imagen", type: "file", placeholder: "Imagen" },
+        ]}
+        title={editingProducto ? "Editar Producto" : "Crear Producto"}
+        submitText={editingProducto ? "Actualizar" : "Crear"}
+        loading={submitLoading}
+        initialData={editingProducto || {}}
+      />
+    </div>
+  );
 }
 
 export default ProductsAdmin;
