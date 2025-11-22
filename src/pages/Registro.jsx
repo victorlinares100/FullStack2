@@ -4,6 +4,7 @@ import Input from "../components/molecules/Input";
 import Mensaje from "../components/atoms/Mensaje";
 import Text from "../components/atoms/Text";
 import usuarioService from "../services/usuarioService";
+import { validateRegistro } from "../utils/validators";
 import '../styles/register.css';
 
 function Registro() {
@@ -14,6 +15,7 @@ function Registro() {
   const [region, setRegion] = useState("");
   const [comuna, setComuna] = useState("");
   const [mensaje, setMensaje] = useState(null);
+  const [errors, setErrors] = useState({});
 
 const regiones = [
   "Arica y Parinacota",
@@ -55,15 +57,14 @@ const comunasPorRegion = {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!nombre || !correo || !password || !confirmarPassword || !region || !comuna) {
-      setMensaje({ tipo: "danger", texto: "Por favor, complete todos los campos." });
+    const validationErrors = validateRegistro(nombre, correo, password, confirmarPassword, region, comuna);
+    
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       return;
     }
+    setErrors({}); // Limpiar errores si todo está bien
 
-    if (password !== confirmarPassword) {
-      setMensaje({ tipo: "danger", texto: "Las contraseñas no coinciden." });
-      return;
-    }
     const nuevoUsuario = { 
       nombre: nombre, 
       correo: correo, 
@@ -78,7 +79,6 @@ const comunasPorRegion = {
       
       
       setMensaje({ tipo: "success", texto: typeof data === 'string' ? data : (data.mensaje || "Registro exitoso.") });
-
     
       setNombre("");
       setCorreo("");
@@ -106,13 +106,14 @@ const comunasPorRegion = {
       <Container className="my-5">
         <Text variant="h2">Registro De Usuario</Text>
 
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} noValidate>
           <Input
             id="nombre"
             label="Nombre completo:"
             type="text"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
+            error={errors.nombre}
           />
 
           <Input
@@ -121,6 +122,7 @@ const comunasPorRegion = {
             type="email"
             value={correo}
             onChange={(e) => setCorreo(e.target.value)}
+            error={errors.correo}
           />
 
           <Input
@@ -129,6 +131,7 @@ const comunasPorRegion = {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            error={errors.password}
           />
 
           <Input
@@ -137,6 +140,7 @@ const comunasPorRegion = {
             type="password"
             value={confirmarPassword}
             onChange={(e) => setConfirmarPassword(e.target.value)}
+            error={errors.confirmarPassword}
           />
 
           {/* Región */}
@@ -148,13 +152,16 @@ const comunasPorRegion = {
                 setRegion(e.target.value);
                 setComuna("");
               }}
-              required
+              isInvalid={!!errors.region}
             >
               <option value="">Seleccione una región</option>
               {regiones.map((r) => (
                 <option key={r} value={r}>{r}</option>
               ))}
             </Form.Select>
+            <Form.Control.Feedback type="invalid">
+              {errors.region}
+            </Form.Control.Feedback>
           </Form.Group>
 
           {/* Comuna */}
@@ -163,8 +170,8 @@ const comunasPorRegion = {
             <Form.Select
               value={comuna}
               onChange={(e) => setComuna(e.target.value)}
-              required
               disabled={!region}
+              isInvalid={!!errors.comuna}
             >
               <option value="">Seleccione una comuna</option>
               {region &&
@@ -172,21 +179,26 @@ const comunasPorRegion = {
                   <option key={c} value={c}>{c}</option>
                 ))}
             </Form.Select>
+            <Form.Control.Feedback type="invalid">
+              {errors.comuna}
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Button className="register-button" type="submit">
             Registrarse
           </Button>
 
-        {mensaje && (
+      
+
+        </Form>
+
+             {mensaje && (
           <Mensaje
             variant={mensaje.tipo}
             text={mensaje.texto}
             onClose={() => setMensaje(null)}
           />
         )}
-
-        </Form>
 
         {/* Quitamos el style rojo y usamos la clase 'register-link' */}
         <div className="mt-3 register-link">

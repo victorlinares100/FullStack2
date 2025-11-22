@@ -1,8 +1,7 @@
-// src/components/molecules/FormInput.jsx
 import React from "react";
 import { Form } from "react-bootstrap";
 
-function Input({ id, label, type = "text", as = "input", rows, value, onChange }) {
+function Input({ id, label, type = "text", as = "input", rows, value, onChange, error }) {
   return (
     <Form.Group controlId={id} className="mb-3">
       <Form.Label>{label}</Form.Label>
@@ -12,8 +11,11 @@ function Input({ id, label, type = "text", as = "input", rows, value, onChange }
         rows={rows}
         value={value}
         onChange={onChange}
-        required
+        isInvalid={!!error}
       />
+      <Form.Control.Feedback type="invalid">
+        {error}
+      </Form.Control.Feedback>
     </Form.Group>
   );
 }

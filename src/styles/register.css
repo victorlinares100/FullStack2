@@ -38,3 +38,34 @@
     background-color: #0a58ca;
 }
 
+.alert .btn-close {
+    background-color: transparent !important; /* Quita el azul */
+    border: none;
+    float: left;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+    padding: 0 10px;
+    cursor: pointer;
+}
+    
+/* Dibujamos la X manualmente porque falta el icono */
+.alert .btn-close::before {
+    content: "×"; 
+}
+
+.alert .btn-close:hover {
+    opacity: .75;
+}
+
+.alert {
+    /* !important obliga al navegador a usar este margen sí o sí */
+    margin-bottom: 30px !important; 
+    
+    /* Asegura que la alerta ocupe su propio espacio y empuje lo de abajo */
+    display: block; 
+    position: relative;
+}

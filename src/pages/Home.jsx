@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Carousel, Row, Col } from 'react-bootstrap';
+import { Container, Carousel, Row, Col, Button } from 'react-bootstrap';
 import ProductCard from '../components/organisms/ProductCard'; 
 import products from '../data/Products';
 
@@ -19,9 +19,13 @@ function Home() {
     <>
       <Container className="py-4"> 
         {/* Links de Sesión */}
-        <div className="d-flex mb-3"> 
-          <a className="font me-3" href="/Login">Iniciar sesión </a>
-          <a className="font" href="/Registro">Registrarse</a>
+        <div className="d-flex justify-content-end mb-4"> 
+          <Button variant="outline-dark" href="/login" className="me-2">
+            Iniciar sesión
+          </Button>
+          <Button variant="dark" href="/registro">
+            Registrarse
+          </Button>
         </div>
 
         <section>       
@@ -39,7 +43,9 @@ function Home() {
             </Carousel>
           </div>
 
-          <h2 className="titulo-seccion text-center my-4">MÁS POPULARES</h2>         
+          <div className="text-center">
+            <h2 className="titulo-seccion my-4">MÁS POPULARES</h2>
+          </div>         
           <Row>           
             {popularProducts.map((product) => (
               
