@@ -10,7 +10,6 @@ const productColumns = ["ID", "Nombre", "Precio", "Stock", "Categoría", "Marca"
 
 function ProductsAdmin() {
   const navigate = useNavigate();
-
   const [pageData, setPageData] = useState([{ title: "Productos", service: "productos", columns: productColumns, data: [] }]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -56,6 +55,9 @@ function ProductsAdmin() {
         Logo: p.imagen ? <img src={p.imagen.url} className="w-12 h-12 object-cover rounded" /> : "Sin imagen",
         onEdit: () => openEdit(p),
         onDelete: () => handleDelete(p.id),
+        categoriaId: p.categoria?.id || "",
+        marcaId: p.marca?.id || "",
+        tallaId: p.talla?.id || "",
       }));
       setPageData([{ title: "Productos", service: "productos", columns: productColumns, data: dataWithActions }]);
     } catch (error) {
@@ -73,16 +75,16 @@ function ProductsAdmin() {
     setSubmitLoading(true);
     try {
       const dto = {
-        nombreProducto: formData.nombre,
-        precioProducto: parseFloat(formData.precio),
+        nombre: formData.nombre,
+        precio: parseFloat(formData.precio),
         stock: parseInt(formData.stock),
-        categoria: formData.categoria,
-        marca: formData.marca,
-        talla: formData.talla,
-        imagenUrl: formData.imagen,
+        categoria: formData.categoria || null,
+        marca: formData.marca || null,
+        talla: formData.talla || null,
+        imagen: formData.imagen || null,
       };
 
-      if (editingProducto) {
+      if (editingProducto?.id) {
         await productoService.update(editingProducto.id, dto);
         generarMensaje("Producto actualizado con éxito!", "success");
       } else {
@@ -91,13 +93,13 @@ function ProductsAdmin() {
       }
 
       await loadProductos();
+      setEditingProducto(null);
+      setIsModalOpen(false);
     } catch (error) {
-      console.error(error);
+      console.error("Error al guardar producto:", error.response?.data || error.message);
       generarMensaje("Error al guardar producto", "warning");
     }
     setSubmitLoading(false);
-    setEditingProducto(null);
-    setIsModalOpen(false);
   };
 
   const handleDelete = async (id) => {

@@ -1,44 +1,100 @@
 import api from './api';
 
+// Manejo de errores genérico
+const handleError = (error) => {
+    console.error("API Error:", error.response?.status, error.response?.data || error.message);
+    throw error;
+};
+
 // Productos
 const getAll = async () => {
-    const response = await api.get('/api/productos');
-    return response.data;
+    try {
+        const response = await api.get('/api/productos');
+        return response.data;
+    } catch (error) {
+        handleError(error);
+    }
 };
 
 const getById = async (id) => {
-    const response = await api.get(`/api/productos/${id}`);
-    return response.data;
+    try {
+        const response = await api.get(`/api/productos/${id}`);
+        return response.data;
+    } catch (error) {
+        handleError(error);
+    }
 };
 
 const create = async (data) => {
-    const response = await api.post('/api/productos', data);
-    return response.data;
+    try {
+        const dto = {
+            nombreProducto: data.nombre || data.nombreProducto,
+            precioProducto: parseFloat(data.precio),
+            stock: parseInt(data.stock),
+            categoriaId: data.categoria || null,
+            marcaId: data.marca || null,
+            tallaId: data.talla || null,
+            imagenUrl: data.imagen || null,
+        };
+        const response = await api.post('/api/productos', dto);
+        return response.data;
+    } catch (error) {
+        handleError(error);
+    }
 };
 
 const update = async (id, data) => {
-    const response = await api.put(`/api/productos/${id}`, data);
-    return response.data;
+    try {
+        const dto = {
+            nombreProducto: data.nombre || data.nombreProducto,
+            precioProducto: parseFloat(data.precio),
+            stock: parseInt(data.stock),
+            categoriaId: data.categoria || null,
+            marcaId: data.marca || null,
+            tallaId: data.talla || null,
+            imagenUrl: data.imagen || null,
+        };
+        const response = await api.put(`/api/productos/${id}`, dto);
+        return response.data;
+    } catch (error) {
+        handleError(error);
+    }
 };
 
 const remove = async (id) => {
-    await api.delete(`/api/productos/${id}`);
+    try {
+        await api.delete(`/api/productos/${id}`);
+    } catch (error) {
+        handleError(error);
+    }
 };
 
-// 🔹 Nuevas funciones para selects
+// Funciones para selects
 const getCategorias = async () => {
-    const response = await api.get('/api/categorias');
-    return response.data; // [{id, tipoCategoria}]
+    try {
+        const response = await api.get('/api/categorias');
+        return response.data;
+    } catch (error) {
+        handleError(error);
+    }
 };
 
 const getMarcas = async () => {
-    const response = await api.get('/api/marcas');
-    return response.data; // [{id, nombreMarca}]
+    try {
+        const response = await api.get('/api/marcas');
+        return response.data;
+    } catch (error) {
+        handleError(error);
+    }
 };
 
 const getTallas = async () => {
-    const response = await api.get('/api/tallas');
-    return response.data; // [{id, tipoTalla}]
+    try {
+        const response = await api.get('/api/tallas');
+        return response.data;
+    } catch (error) {
+        handleError(error);
+    }
 };
 
 export default {

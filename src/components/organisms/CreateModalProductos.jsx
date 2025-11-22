@@ -20,7 +20,12 @@ function CreateModalProductos({
   useEffect(() => {
     const initial = {};
     inputsConfig.forEach((input) => {
-      initial[input.name] = initialData[input.name] || "";
+      if (input.type === "select") {
+        initial[input.name] = initialData[`${input.name}Id`] || "";
+      } else {
+        initial[input.name] = initialData[input.name] || "";
+      }
+
       if (input.type === "file" && initialData[input.name]) {
         initial[`${input.name}Preview`] = initialData[input.name];
       }
@@ -54,7 +59,13 @@ function CreateModalProductos({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData); // enviamos DTO
+    const dataToSend = { ...formData };
+    inputsConfig.forEach((input) => {
+      if (input.type === "select") {
+        dataToSend[input.name] = formData[input.name] ? parseInt(formData[input.name]) : null;
+      }
+    });
+    onSubmit(dataToSend);
   };
 
   return (
@@ -83,8 +94,7 @@ function CreateModalProductos({
               return (
                 <Form.Group key={input.name} className="mb-3">
                   <Form.Label>{input.placeholder}</Form.Label>
-                  <Form.Control
-                    as="select"
+                  <Form.Select
                     name={input.name}
                     value={formData[input.name] || ""}
                     onChange={handleChange}
@@ -92,11 +102,11 @@ function CreateModalProductos({
                   >
                     <option value="">Seleccione...</option>
                     {input.options?.map((opt) => (
-                      <option key={opt.id} value={opt.tipo || opt.nombre || opt.id}>
-                        {opt.tipo || opt.nombre || opt.id}
+                      <option key={opt.id} value={opt.id}>
+                        {opt.nombre || opt.tipoCategoria || opt.tipoTalla}
                       </option>
                     ))}
-                  </Form.Control>
+                  </Form.Select>
                 </Form.Group>
               );
             }
@@ -116,9 +126,7 @@ function CreateModalProductos({
           })}
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={onClose} disabled={uploadingImage}>
-            Cancelar
-          </Button>
+          <Button onClick={onClose} disabled={uploadingImage}>Cancelar</Button>
           <Button type="submit" disabled={loading || uploadingImage}>
             {loading ? "Guardando..." : submitText}
           </Button>
