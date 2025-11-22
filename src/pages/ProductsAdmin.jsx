@@ -26,45 +26,69 @@ function ProductsAdmin() {
   }, []);
 
   const loadOptions = async () => {
-    try {
-      const [cat, mar, tall] = await Promise.all([
-        productoService.getCategorias(),
-        productoService.getMarcas(),
-        productoService.getTallas(),
-      ]);
-      setCategorias(cat);
-      setMarcas(mar);
-      setTallas(tall);
-    } catch (error) {
-      console.error("Error al cargar opciones:", error);
-    }
-  };
+        try {
+        const [cat, mar, tall] = await Promise.all([
+            productoService.getCategorias(),
+            productoService.getMarcas(),
+            productoService.getTallas(),
+        ]);
+        setCategorias(cat);
+        setMarcas(mar);
+        setTallas(tall);
+        } catch (error) {
+        console.error("Error al cargar opciones:", error);
+        }
+    };
 
-  const loadProductos = async () => {
-    setLoading(true);
-    try {
-      const data = await productoService.getAll();
-      const dataWithActions = data.map((p) => ({
-        id: p.id,
-        Nombre: p.nombreProducto,
-        Precio: `$${parseFloat(p.precioProducto).toFixed(2)}`,
-        Stock: p.stock,
-        Categoría: p.categoria?.tipoCategoria || "",
-        Marca: p.marca?.nombreMarca || "",
-        Talla: p.talla?.tipoTalla || "",
-        Logo: p.imagen ? <img src={p.imagen.url} className="w-12 h-12 object-cover rounded" /> : "Sin imagen",
-        onEdit: () => openEdit(p),
-        onDelete: () => handleDelete(p.id),
-        categoriaId: p.categoria?.id || "",
-        marcaId: p.marca?.id || "",
-        tallaId: p.talla?.id || "",
-      }));
-      setPageData([{ title: "Productos", service: "productos", columns: productColumns, data: dataWithActions }]);
-    } catch (error) {
-      generarMensaje("Error al cargar productos", "warning");
-    }
-    setLoading(false);
-  };
+    const loadProductos = async () => {
+        setLoading(true);
+        try {
+            const data = await productoService.getAll();
+
+            console.log("Productos desde backend:", data); // Para depuración
+
+            const dataWithActions = data.map((p) => ({
+                id: p.id,
+                Nombre: p.nombreProducto,
+                Precio: `$${parseFloat(p.precioProducto).toFixed(2)}`,
+                Stock: p.stock,
+                Categoría: p.categoria?.tipoCategoria || "",
+                Marca: p.marca?.nombreMarca || "",
+                Talla: p.talla?.tipoTalla || "",
+                Logo: p.imagen?.url ? (
+                <div style={{ width: 64, height: 64, overflow: "hidden", borderRadius: 8 }}>
+                    <img
+                    src={p.imagen.url}
+                    alt={p.nombreProducto}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                </div>
+                ) : "Sin imagen",
+
+
+                onEdit: () => openEdit(p),
+                onDelete: () => handleDelete(p.id),
+                categoriaId: p.categoria?.id || "",
+                marcaId: p.marca?.id || "",
+                tallaId: p.talla?.id || "",
+            }));
+
+            setPageData([{
+                title: "Productos",
+                service: "productos",
+                type: "table", // Importante para que Section renderice la tabla
+                columns: productColumns,
+                data: dataWithActions,
+            }]);
+        } catch (error) {
+            generarMensaje("Error al cargar productos", "warning");
+            console.error(error);
+        }
+        setLoading(false);
+    };
+
+
+
 
   const openEdit = (producto) => {
     setEditingProducto(producto);
