@@ -3,14 +3,14 @@ import api from './api';
 
 // Función para registrar un nuevo usuario
 const registrar = async (datosUsuario) => {
-    const response = await api.post('/api/usuarios', datosUsuario);
+    const response = await api.post('api/auth/registro', datosUsuario);
     // Retornamos solo los datos de la respuesta (el mensaje de éxito)
     return response.data;
 };
 
 // Función para iniciar sesión
 const login = async (credenciales) => {
-    const response = await api.post('/api/auth/login', credenciales);
+    const response = await api.post('api/auth/login', credenciales);
     
     if (response.data){
         localStorage.setItem("usuarioLogueado", JSON.stringify(response.data.usuario));
