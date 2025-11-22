@@ -40,7 +40,19 @@ function ProductsAdmin() {
           id: p.id,
           Nombre: p.nombre,
           Precio: `$${parseFloat(p.precio).toFixed(2)}`,
-          Logo: p.imagen ? <img src={p.imagen} className="w-12 h-12 object-cover rounded" /> : "Sin imagen",
+          Logo: p.imagen ? (
+            <img
+                src={p.imagen}
+                alt=""
+                style={{
+                width: "60px",
+                height: "60px",
+                objectFit: "cover",
+                borderRadius: "8px"
+                }}
+            />
+            ) : "Sin imagen",
+
           onEdit: () => abrirEdicion(p),
           onDelete: () => eliminarProducto(p.id),
         }));

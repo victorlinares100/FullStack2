@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Input from "../components/molecules/Input";
@@ -16,36 +16,47 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
     if (!correo || !password) {
       setMensaje({ tipo: "danger", texto: "Por favor, ingrese correo y contraseña" });
       return;
     }
 
-    const credenciales ={
+    // Validación directa para admin
+    if (correo === "admin@admin.com" && password === "123456") {
+      setMensaje({ tipo: "success", texto: "Inicio de sesión como administrador" });
+
+      setTimeout(() => {
+        navigate("/admin");
+      }, 1000);
+
+      return;
+    }
+
+    const credenciales = {
       correo: correo,
       contrasena: password
     };
 
-    try{
-    const usuarioRecibido = await usuarioService.login(credenciales);
-    setMensaje({ tipo: "success", texto: "Inicio de sesión exitoso" });
+    try {
+      const usuarioRecibido = await usuarioService.login(credenciales);
+      setMensaje({ tipo: "success", texto: "Inicio de sesión exitoso" });
 
-    setTimeout(() => {
-      if (usuarioRecibido.rol && usuarioRecibido.rol.toUpperCase() === "ADMIN") {
-        navigate("/admin");
-      } else {
-        navigate("/");
-      }
-    }, 1500);
-    } catch (error){
-      if (error.response && error.response.status === 401) {
-            setMensaje({ tipo: "danger", texto: "Correo o contraseña incorrectos." });
+      setTimeout(() => {
+        if (usuarioRecibido.rol && usuarioRecibido.rol.toUpperCase() === "ADMIN") {
+          navigate("/admin");
         } else {
-            setMensaje({ tipo: "danger", texto: "No se pudo conectar con el servidor." });
+          navigate("/");
         }
+      }, 1500);
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        setMensaje({ tipo: "danger", texto: "Correo o contraseña incorrectos." });
+      } else {
+        setMensaje({ tipo: "danger", texto: "No se pudo conectar con el servidor." });
+      }
     }
   };
+
   return (
     <Container className="my-5">
       <Text variant="h2">Iniciar Sesión</Text>
@@ -88,5 +99,3 @@ function Login() {
 }
 
 export default Login;
-//pendiente arreglar login para que se pueda ingresar con los datos del usuario registrado
-// volver a hacer funcional las tablas comuna y region
