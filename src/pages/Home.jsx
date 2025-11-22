@@ -22,7 +22,7 @@ function Home() {
 
         <section>       
           <div className="section-spacing mb-5">
-            <Carousel>
+            <Carousel className="carousel-limit-height" interval={3000} fade>
               {carouselItems.map(item => (
                 <Carousel.Item key={item.id}>                 
                   <img
