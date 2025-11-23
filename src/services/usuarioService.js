@@ -23,7 +23,6 @@ const logout = () => {
     localStorage.removeItem("usuarioLogueado");
 }
 
-
 const usuarioService = {
     registrar,
     login,
