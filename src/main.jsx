@@ -11,13 +11,16 @@ import './styles/footer.css'
 import './styles/nosotros.css';
 import './styles/products.css';
 import './styles/contacto.css';
+import { UserProvider } from './context/UserContext';
 
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <UserProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </UserProvider>
   </StrictMode>,
 )

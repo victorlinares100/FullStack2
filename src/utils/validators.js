@@ -49,3 +49,23 @@ export const validateLogin = (correo, password) => {
 
   return errors;
 };
+
+export const validateContacto = (nombre, correo, contenido) => {
+  const errors = {};
+
+  if (!nombre || !nombre.trim()) {
+    errors.nombre = "El nombre es obligatorio.";
+  }
+
+  if (!correo) {
+    errors.correo = "El correo es obligatorio.";
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+    errors.correo = "Formato de correo inválido.";
+  }
+
+  if (!contenido || !contenido.trim()) {
+    errors.contenido = "El mensaje es obligatorio.";
+  }
+
+  return errors;
+};

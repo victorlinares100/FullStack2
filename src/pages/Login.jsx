@@ -8,21 +8,23 @@ import usuarioService from "../services/usuarioService";
 import logo from "../assets/img/aurea_logo_con.webp";
 import {Link} from "react-router-dom";  
 import { validateLogin } from "../utils/validators";
+import { useUser } from "../context/UserContext";
 
 function Login() {
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
   const [mensaje, setMensaje] = useState(null);
-  const [errors, setErrors] = useState({}); // Estado para errores específicos
+  const [errors, setErrors] = useState({}); // Constante para Errores de validación
+  const { login } = useUser();
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors({}); // Limpiar errores previos
+    setErrors({}); // Eso limpia errores anteriores
     setMensaje(null);
 
-    // Validaciones usando utils/validators.js
+    // Validacion de campos
     const newErrors = validateLogin(correo, password);
 
     if (Object.keys(newErrors).length > 0) {
@@ -30,8 +32,14 @@ function Login() {
       return;
     }
 
-    // Validación directa para admin
+    // Validación solo para admin
     if (correo === "admin@admin.com" && password === "123456") {
+      const adminUser = {
+        nombre: "Administrador",
+        correo: "admin@admin.com",
+        rol: "admin"
+      };
+      login(adminUser);
       setMensaje({ tipo: "success", texto: "Inicio de sesión como administrador" });
 
       setTimeout(() => {
@@ -47,11 +55,15 @@ function Login() {
     };
 
     try {
-      const usuarioRecibido = await usuarioService.login(credenciales);
+      const data = await usuarioService.login(credenciales);
+      // Guardar el usuario en el contexto
+      const userToSave = data.usuario || data; 
+      login(userToSave);
+      
       setMensaje({ tipo: "success", texto: "Inicio de sesión exitoso" });
 
       setTimeout(() => {
-        if (usuarioRecibido.rol && usuarioRecibido.rol.toUpperCase() === "ADMIN") {
+        if (userToSave.rol && userToSave.rol.toUpperCase() === "ADMIN") {
           navigate("/admin");
         } else {
           navigate("/");
@@ -59,7 +71,7 @@ function Login() {
       }, 1500);
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        // Asignamos el error al campo correspondiente o mostramos mensaje general
+        // Credenciales incorrectas
         setMensaje({ tipo: "danger", texto: "Correo o contraseña incorrectos." });
       } else {
         setMensaje({ tipo: "danger", texto: "No se pudo conectar con el servidor." });
