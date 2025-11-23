@@ -14,7 +14,7 @@ export default function HomeAdmin() {
       </aside>
 
       <main className="admin-content">
-        <h1 className="admin-title">Bienvenido al Panel de Administración</h1>
+        <h1 className="admin-title">Panel de Administración</h1>
 
         <div className="admin-card">
           <p>Gestiona productos, usuarios y el contenido del sitio.</p>

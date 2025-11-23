@@ -1,5 +1,5 @@
- import React, { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation, matchPath } from 'react-router-dom';
 import NavBar from './components/organisms/Navbar';
 import Home from './pages/Home';
 import Products from './pages/Products';
@@ -14,28 +14,43 @@ import Footer from './components/organisms/Footer';
 import { initAdmin } from './data/UserAdmin';
 import HomeAdmin from './pages/Admin';
 import ProductsAdmin from './pages/ProductsAdmin';
+import FixedFooter from './components/organisms/FixedFooter';
+import NotFound from './pages/NotFound';
 
 function App() {
-
-  const location = useLocation();
-
-  // Rutas donde NO queremos mostrar el Navbar
-  const hideNavbar = ["/registro", "/login"].includes(location.pathname.toLowerCase());
-
-  // Detectar rutas de administrador
-  const isAdmin =
-    location.pathname.startsWith("/admin") ||
-    location.pathname.startsWith("/productosAdmin");
+  const { pathname } = useLocation();
 
   useEffect(() => {
     initAdmin();  
   }, []);
 
+  // Rutas validas de la pagina web, cualquier otra sera 404
+  const validRoutes = [
+    "/",
+    "/products",
+    "/products/:id",
+    "/nosotros",
+    "/contacto",
+    "/registro",
+    "/login",
+    "/blog",
+    "/carrito",
+    "/admin",
+    "/productosAdmin"
+  ];
+
+  // Verifica si la ruta actual coincide con alguna de las rutas válidas
+  const isNotFound = !validRoutes.some(path => matchPath({ path, end: true }, pathname));
+
+  // Lógica para ocultar componentes
+  const isAdminRoute = pathname.startsWith("/admin") || pathname.startsWith("/productosAdmin");
+  const hideNavBar = ["/registro", "/login"].includes(pathname) || isAdminRoute || isNotFound;
+  const hideFooter = ["/login", "/registro", "/carrito", "/contacto", "/nosotros"].includes(pathname) || isAdminRoute || isNotFound;
+  const hideFixedFooter = ["/", "/products", "/blog"].includes(pathname) || isAdminRoute || isNotFound;
+
   return (
     <div className="app-container">
-
-      {/* Mostrar navbar solo si no es admin Y no está en la lista de ocultos */}
-      {!isAdmin && !hideNavbar && <NavBar />}
+      {!hideNavBar && <NavBar />}
 
       <main style={{ flex: 1 }}>
         <Routes>
@@ -48,15 +63,18 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/carrito" element={<Carrito />} />
-
+          
           {/* Admin */}
           <Route path="/admin" element={<HomeAdmin />} />
           <Route path="/productosAdmin" element={<ProductsAdmin />} />
+          
+          {/* Ruta 404 */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
 
-      {/* No mostrar footer en admin */}
-      {!isAdmin && <Footer />}
+      {!hideFooter && <Footer />}
+      {!hideFixedFooter && <FixedFooter />}
     </div>
   );
 }
