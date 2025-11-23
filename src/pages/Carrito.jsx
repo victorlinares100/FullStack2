@@ -5,7 +5,6 @@ import { getCartItems, removeProductFromCart, calculateTotal, clearAllCart } fro
 import Text from '../components/atoms/Text';
 import Button from '../components/atoms/Button';
 import Mensaje from '../components/atoms/Mensaje';
-
 import carritoService from '../services/carritoService';
 
 function Carrito() {

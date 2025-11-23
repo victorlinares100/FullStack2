@@ -1,15 +1,18 @@
 import api from "./api";
 
-const guardarCarrito = async (items, userId, metodoPagoId = 1, estadoId = 1) => {
+const guardarCarrito = async (items, usuarioId, metodoPagoId = 1, estadoId = 1) => {
     const payload = {
-        userId: userId,       
-        metodoPagoId: metodoPagoId, 
+        usuarioId: usuarioId,  
+        metodoPagoId: metodoPagoId,
+        estadoId: estadoId,
         items: items.map(i => ({
             productoId: i.id,
             cantidad: i.quantity,
             precioUnitario: i.price
         }))
     };
+
+    console.log("PAGO ENVIADO:", payload);
 
     const resp = await api.post("/api/comprobantes/carrito", payload);
     return resp.data;
