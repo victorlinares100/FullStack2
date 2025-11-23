@@ -11,7 +11,12 @@ export const UserProvider = ({ children }) => {
     // Cargar usuario del localStorage al iniciar
     const storedUser = localStorage.getItem("usuarioLogueado");
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (error) {
+        console.error("Error parsing user from localStorage", error);
+        localStorage.removeItem("usuarioLogueado");
+      }
     }
   }, []);
 

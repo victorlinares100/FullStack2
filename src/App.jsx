@@ -9,12 +9,11 @@ import Contacto from './pages/Contacto';
 import Registro from './pages/Registro';
 import Login from './pages/Login';
 import Blog from './pages/Blog';
-import Carrito from './pages/carrito';
+import Carrito from './pages/Carrito';
 import Footer from './components/organisms/Footer';
 import { initAdmin } from './data/UserAdmin';
 import HomeAdmin from './pages/Admin';
 import ProductsAdmin from './pages/ProductsAdmin';
-import { Nav } from 'react-bootstrap';
 
 function App() {
 
