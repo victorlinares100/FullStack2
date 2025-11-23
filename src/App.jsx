@@ -40,7 +40,7 @@ function App() {
   // Lógica para ocultar componentes
   const isAdminRoute = pathname.startsWith("/admin") || pathname.startsWith("/productosAdmin");
   const hideNavBar = ["/registro", "/login"].includes(pathname) || isAdminRoute || isNotFound;
-  const hideFooter = ["/login", "/registro", "/carrito", "/contacto", "/nosotros","/products"].includes(pathname) || isAdminRoute || isNotFound;
+  const hideFooter = ["/login", "/registro", "/carrito", "/contacto", "/nosotros","/products"].includes(pathname.toLowerCase()) || isAdminRoute || isNotFound;
   const hideFixedFooter = ["/", "/blog"].includes(pathname) || isAdminRoute || isNotFound;
 
   return (
