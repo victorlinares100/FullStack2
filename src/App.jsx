@@ -11,7 +11,6 @@ import Login from './pages/Login';
 import Blog from './pages/Blog';
 import Carrito from './pages/Carrito';
 import Footer from './components/organisms/Footer';
-import { initAdmin } from './data/UserAdmin';
 import HomeAdmin from './pages/Admin';
 import ProductsAdmin from './pages/ProductsAdmin';
 import FixedFooter from './components/organisms/FixedFooter';
@@ -19,10 +18,6 @@ import NotFound from './pages/NotFound';
 
 function App() {
   const { pathname } = useLocation();
-
-  useEffect(() => {
-    initAdmin();  
-  }, []);
 
   // Rutas validas de la pagina web, cualquier otra sera 404
   const validRoutes = [
@@ -45,8 +40,8 @@ function App() {
   // Lógica para ocultar componentes
   const isAdminRoute = pathname.startsWith("/admin") || pathname.startsWith("/productosAdmin");
   const hideNavBar = ["/registro", "/login"].includes(pathname) || isAdminRoute || isNotFound;
-  const hideFooter = ["/login", "/registro", "/carrito", "/contacto", "/nosotros"].includes(pathname) || isAdminRoute || isNotFound;
-  const hideFixedFooter = ["/", "/products", "/blog"].includes(pathname) || isAdminRoute || isNotFound;
+  const hideFooter = ["/login", "/registro", "/carrito", "/contacto", "/nosotros","/products"].includes(pathname) || isAdminRoute || isNotFound;
+  const hideFixedFooter = ["/", "/blog"].includes(pathname) || isAdminRoute || isNotFound;
 
   return (
     <div className="app-container">

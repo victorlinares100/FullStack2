@@ -32,23 +32,6 @@ function Login() {
       return;
     }
 
-    // Validación solo para admin
-    if (correo === "admin@admin.com" && password === "123456") {
-      const adminUser = {
-        nombre: "Administrador",
-        correo: "admin@admin.com",
-        rol: "admin"
-      };
-      login(adminUser);
-      setMensaje({ tipo: "success", texto: "Inicio de sesión como administrador" });
-
-      setTimeout(() => {
-        navigate("/admin");
-      }, 1000);
-
-      return;
-    }
-
     const credenciales = {
       correo: correo,
       contrasena: password
