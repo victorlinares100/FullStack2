@@ -50,6 +50,11 @@ function NavBar() {
             <Nav.Link as={Link} to="/Nosotros">Nosotros</Nav.Link>
             <Nav.Link as={Link} to="/Contacto">Contactanos</Nav.Link>
             <Nav.Link as={Link} to="/Blog">Blog</Nav.Link>
+            {user && user.rol && user.rol.toUpperCase() === 'ADMIN' && (
+              <Nav.Link as={Link} to="/admin" className="text-warning fw-bold">
+                Panel Admin
+              </Nav.Link>
+            )}
           </Nav>
           <Nav className="d-flex align-items-center">
             <NavDropdown title={UserIcon} id="user-nav-dropdown" align="end" className="no-caret me-2">
