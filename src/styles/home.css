@@ -1,24 +1,23 @@
 /* --- Nuevo Estilo para limitar la altura del carrusel --- */
 
 .carousel-limit-height {
-  /* Establece la altura MÁXIMA que quieres que tenga TODO el carrusel */
-  max-height: 400px; /* **ALTURA FIJA DESEADA** */
-  overflow: hidden; /* Oculta cualquier parte de la imagen que se salga */
-  border-radius: 8px; 
+  height: 400px; /* Altura fija para que se vea como un banner ordenado */
+  background-color: #f8f9fa; /* Fondo gris claro por si la imagen no llena todo */
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-/* 1. Asegura que CADA diapositiva del carrusel tenga la misma altura */
+/* 1. Aseguramos que el contenedor del item ocupe toda la altura */
 .carousel-limit-height .carousel-item {
-  height: 400px; /* Debe coincidir con la altura máxima */
+  height: 100%;
+  background-color: transparent; /* Quitamos el fondo negro */
 }
 
-/* 2. Asegura que la imagen dentro de la diapositiva cubra ese espacio */
+/* 2. La imagen se ajusta para verse COMPLETA (contain) sin recortarse ni deformarse */
 .carousel-limit-height .carousel-item img {
-  /* La clase Bootstrap d-block w-100 ya hace que ocupe el 100% del ancho */
-  height: 100%; /* Ocupa el 100% de la altura del .carousel-item (que es 400px) */
-  object-fit: cover;
-  display: block;
-   /* Clave: recorta la imagen (si es necesario) para que cubra todo el espacio sin distorsionarse. */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cubre todo el espacio (puede recortar un poco los bordes) */
 }
 
 /* Opcional: Si quieres mantener el espaciado de tu HTML anterior */
@@ -62,35 +61,31 @@
 
 /* --- Nuevos Estilos para el Carrusel --- */
 
-/* Estilos para los indicadores (círculos) del carrusel */
-.carousel-indicators [data-bs-target] {
-    width: 12px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: var(--gold-primary, #C5A25D); /* Usa tu variable de color dorado o el fallback */
-    border: 2px solid #fff;
-    margin: 0 5px;
-    opacity: 0.5;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+/* Ocultar los indicadores (puntos) del carrusel */
+.carousel-indicators {
+    display: none !important;
 }
 
-.carousel-indicators .active {
-    opacity: 1;
-    transform: scale(1.2);
-    background-color: var(--gold-dark, #a88948);
+/* Ocultar las flechas de control (Next/Prev) */
+.carousel-control-prev,
+.carousel-control-next {
+    display: none !important;
 }
 
-/* Estilos para las flechas de control */
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente para mejor visibilidad */
-    border-radius: 50%;
+/* Estilo para el texto y botón dentro del carrusel */
+.carousel-caption-custom {
+    background: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
     padding: 20px;
-    background-size: 50% 50%; /* Ajusta el tamaño de la flecha dentro del círculo */
+    border-radius: 10px;
+    bottom: 20%; /* Ajustar posición vertical */
 }
 
-.carousel-control-prev:hover,
-.carousel-control-next:hover {
-    opacity: 1;
+.carousel-caption-custom h3 {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.carousel-caption-custom p {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    font-size: 1.2rem;
 }
 

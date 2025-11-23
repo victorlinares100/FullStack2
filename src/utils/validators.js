@@ -33,3 +33,19 @@ export const validateRegistro = (nombre, correo, password, confirmarPassword, re
 
   return errors;
 };
+
+export const validateLogin = (correo, password) => {
+  const errors = {};
+
+  if (!correo) {
+    errors.correo = "El correo es obligatorio.";
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+    errors.correo = "Formato de correo inválido.";
+  }
+
+  if (!password) {
+    errors.password = "La contraseña es obligatoria.";
+  }
+
+  return errors;
+};

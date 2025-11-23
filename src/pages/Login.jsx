@@ -4,20 +4,29 @@ import { useNavigate } from "react-router-dom";
 import Input from "../components/molecules/Input";
 import Text from "../components/atoms/Text";
 import Mensaje from "../components/atoms/Mensaje";
-import usuarioService from "../services/usuarioService";  
+import usuarioService from "../services/usuarioService";
+import logo from "../assets/img/aurea_logo_con.webp";
+import {Link} from "react-router-dom";  
+import { validateLogin } from "../utils/validators";
 
 function Login() {
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
   const [mensaje, setMensaje] = useState(null);
+  const [errors, setErrors] = useState({}); // Estado para errores específicos
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({}); // Limpiar errores previos
+    setMensaje(null);
 
-    if (!correo || !password) {
-      setMensaje({ tipo: "danger", texto: "Por favor, ingrese correo y contraseña" });
+    // Validaciones usando utils/validators.js
+    const newErrors = validateLogin(correo, password);
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
 
@@ -50,6 +59,7 @@ function Login() {
       }, 1500);
     } catch (error) {
       if (error.response && error.response.status === 401) {
+        // Asignamos el error al campo correspondiente o mostramos mensaje general
         setMensaje({ tipo: "danger", texto: "Correo o contraseña incorrectos." });
       } else {
         setMensaje({ tipo: "danger", texto: "No se pudo conectar con el servidor." });
@@ -58,41 +68,57 @@ function Login() {
   };
 
   return (
-    <Container className="my-5">
-      <Text variant="h2">Iniciar Sesión</Text>
+    <Container className="my-5 d-flex flex-column align-items-center">
+      <div className="text-center mb-4">
+        <Link to="/">
+          <img 
+            src={logo} 
+            alt="Logo Aurea" 
+            style={{ width: "150px", height: "auto", borderRadius: "50%" }} 
+            className="mb-3"
+          />
+        </Link>
+        <Text variant="h2">Iniciar Sesión</Text>
+      </div>
 
-      {mensaje && (
-        <Mensaje
-          variant={mensaje.tipo}
-          text={mensaje.texto}
-          onClose={() => setMensaje(null)}
-        />
-      )}
+      <div style={{ width: "100%", maxWidth: "400px" }}>
+        {mensaje && (
+          <Mensaje
+            variant={mensaje.tipo}
+            text={mensaje.texto}
+            onClose={() => setMensaje(null)}
+          />
+        )}
 
-      <Form onSubmit={handleSubmit}>
-        <Input
-          id="correo"
-          label="Correo electrónico:"
-          type="email"
-          value={correo}
-          onChange={(e) => setCorreo(e.target.value)}
-        />
+        <Form onSubmit={handleSubmit} noValidate>
+          <Input
+            id="correo"
+            label="Correo electrónico:"
+            type="email"
+            value={correo}
+            onChange={(e) => setCorreo(e.target.value)}
+            error={errors.correo}
+          />
 
-        <Input
-          id="password"
-          label="Contraseña:"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <Input
+            id="password"
+            label="Contraseña:"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            error={errors.password}
+          />
 
-        <Button type="submit" variant="primary">
-          Iniciar Sesión
-        </Button>
-      </Form>
+          <Button type="submit" variant="primary" className="w-100 mt-3">
+            Iniciar Sesión
+          </Button>
+        </Form>
 
-      <div className="mt-3">
-        <a href="/registro">¿No tienes cuenta? Regístrate aquí</a>
+        <div className="mt-4 text-center">
+          <a href="/registro" className="text-decoration-none">
+            ¿No tienes cuenta? <strong>Regístrate aquí</strong>
+          </a>
+        </div>
       </div>
     </Container>
   );
