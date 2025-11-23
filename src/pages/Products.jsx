@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import Text from '../components/atoms/Text';
 import productoService from '../services/productoService';
+import { addProductToCart } from "../data/cart";
 
 function Products() {
   const [productos, setProductos] = useState([]);
@@ -21,6 +22,17 @@ function Products() {
 
     fetchProductos();
   }, []);
+
+  const handleAddToCart = (producto) => {
+    addProductToCart({
+      id: producto.id,
+      name: producto.nombreProducto,
+      price: producto.precioProducto,
+      quantity: 1
+    });
+
+    alert("Producto agregado al carrito");
+  };
 
   if (loading) {
     return (
@@ -71,17 +83,30 @@ function Products() {
                   </div>
                 )}
               </div>
+
               <Card.Body className="d-flex flex-column">
                 <Card.Title>{p.nombreProducto}</Card.Title>
                 <Card.Text className="mb-1">Precio: ${p.precioProducto}</Card.Text>
                 <Card.Text className="mb-1">Stock: {p.stock}</Card.Text>
-                <Card.Text className="mb-1">Categoría: {p.categoria?.tipoCategoria}</Card.Text>
-                <Card.Text className="mb-1">Marca: {p.marca?.nombreMarca}</Card.Text>
-                <Card.Text className="mb-1">Talla: {p.talla?.tipoTalla}</Card.Text>
-                <Button variant="primary" className="mt-auto">
+                <Card.Text className="mb-1">
+                  Categoría: {p.categoria?.tipoCategoria}
+                </Card.Text>
+                <Card.Text className="mb-1">
+                  Marca: {p.marca?.nombreMarca}
+                </Card.Text>
+                <Card.Text className="mb-1">
+                  Talla: {p.talla?.tipoTalla}
+                </Card.Text>
+
+                <Button
+                  variant="primary"
+                  className="mt-auto"
+                  onClick={() => handleAddToCart(p)}
+                >
                   Comprar
                 </Button>
               </Card.Body>
+
             </Card>
           </Col>
         ))}
