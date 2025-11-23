@@ -1,11 +1,12 @@
 // src/pages/Carrito.jsx
 import React, { useState, useEffect, useMemo } from 'react';
 import { Container, Table } from 'react-bootstrap';
-import { getCartItems, removeProductFromCart, calculateTotal,clearAllCart }   
-from '../data/cart'; 
+import { getCartItems, removeProductFromCart, calculateTotal, clearAllCart } from '../data/cart';
 import Text from '../components/atoms/Text';
 import Button from '../components/atoms/Button';
 import Mensaje from '../components/atoms/Mensaje';
+
+import carritoService from '../services/carritoService';
 
 function Carrito() {
   const [cartItems, setCartItems] = useState([]);
@@ -20,22 +21,51 @@ function Carrito() {
 
   const handleRemove = (productId) => {
     const updatedItems = removeProductFromCart(productId);
-    setCartItems(updatedItems); 
+    setCartItems(updatedItems);
     setMensaje({ tipo: "warning", texto: "Producto eliminado del carrito." });
   };
-  
+
   const handleClearCart = () => {
     const updatedItems = clearAllCart();
     setCartItems(updatedItems);
     setMensaje({ tipo: "info", texto: "El carrito ha sido vaciado." });
   };
-  
+
+  // 🟩 PROCEDER AL PAGO — usando tu servicio real
+  const handleCheckout = async () => {
+    if (cartItems.length === 0) {
+      setMensaje({ tipo: "warning", texto: "El carrito está vacío." });
+      return;
+    }
+
+    try {
+      // userId quemado temporalmente, sustitúyelo con sesión luego
+      const userId = 1;
+
+      await carritoService.guardarCarrito(cartItems, userId);
+
+      clearAllCart();
+      setCartItems([]);
+
+      setMensaje({
+        tipo: "success",
+        texto: "¡Compra realizada con éxito!"
+      });
+
+    } catch (error) {
+      console.error(error);
+      setMensaje({
+        tipo: "danger",
+        texto: "Error al procesar la compra."
+      });
+    }
+  };
 
   return (
     <Container className="py-5">
       <Text variant="h2">🛒 Tu Carrito</Text>
       <hr />
-      
+
       {mensaje && (
         <Mensaje
           variant={mensaje.tipo}
@@ -66,9 +96,9 @@ function Carrito() {
                   <td>${item.price.toLocaleString()}</td>
                   <td>${(item.price * item.quantity).toLocaleString()}</td>
                   <td>
-                    <Button 
-                      variant="danger" 
-                      size="sm" 
+                    <Button
+                      variant="danger"
+                      size="sm"
                       onClick={() => handleRemove(item.id)}
                     >
                       Eliminar
@@ -80,18 +110,23 @@ function Carrito() {
           </Table>
 
           <div className="d-flex justify-content-end align-items-center mt-4">
-            <Text variant="h4" className="mr-3 text-right" style={{ marginRight: '1rem' }}>
-              Total: **${formattedTotal}**
+            <Text variant="h4" style={{ marginRight: '1rem' }}>
+              Total: ${formattedTotal}
             </Text>
             <Button variant="warning" onClick={handleClearCart}>
-                Vaciar Carrito
+              Vaciar Carrito
             </Button>
           </div>
-          
+
           <div className="mt-4 text-right">
-              <Button variant="success" size="lg" style={{ width: '100%' }}>
-                  Proceder al Pago
-              </Button>
+            <Button
+              variant="success"
+              size="lg"
+              style={{ width: '100%' }}
+              onClick={handleCheckout}
+            >
+              Proceder al Pago
+            </Button>
           </div>
         </>
       )}
