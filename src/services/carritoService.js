@@ -14,7 +14,7 @@ const guardarCarrito = async (items, usuarioId, metodoPagoId = 1, estadoId = 1) 
 
     console.log("PAGO ENVIADO:", payload);
 
-    const resp = await api.post("/api/comprobantes/carrito", payload);
+    const resp = await api.post("/api/v1/comprobantes/carrito", payload);
     return resp.data;
 };
 

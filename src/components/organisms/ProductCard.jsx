@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from 'react-bootstrap';
 import Image from '../atoms/Image';
 import Button from '../atoms/Button';
@@ -8,9 +8,12 @@ import { addProductToCart } from '../../data/cart';
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
+  const [mensaje, setMensaje] = useState("");
+
   const handleAddToCart = () => {
     addProductToCart(product);
-    alert(`¡"${product.name}" agregado al carrito!`); 
+    setMensaje("¡Agregado al carrito!");
+    setTimeout(() => setMensaje(""), 2000);
   };
 
   return (
@@ -43,6 +46,7 @@ function ProductCard({ product }) {
             </Button>
             
         </div>
+        {mensaje && <div className="text-success text-center mt-2 fw-bold">{mensaje}</div>}
       </Card.Body>
     </Card>
   );

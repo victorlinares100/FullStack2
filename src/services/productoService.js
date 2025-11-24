@@ -9,7 +9,7 @@ const handleError = (error) => {
 // Productos
 const getAll = async () => {
     try {
-        const response = await api.get('/api/productos');
+        const response = await api.get('/api/v1/productos');
         return response.data;
     } catch (error) {
         handleError(error);
@@ -18,7 +18,7 @@ const getAll = async () => {
 
 const getById = async (id) => {
     try {
-        const response = await api.get(`/api/productos/${id}`);
+        const response = await api.get(`/api/v1/productos/${id}`);
         return response.data;
     } catch (error) {
         handleError(error);
@@ -36,7 +36,7 @@ const create = async (data) => {
             tallaId: data.talla || null,
             imagenUrl: data.imagen || null,
         };
-        const response = await api.post('/api/productos', dto);
+        const response = await api.post('/api/v1/productos', dto);
         return response.data;
     } catch (error) {
         handleError(error);
@@ -54,7 +54,7 @@ const update = async (id, data) => {
             tallaId: data.talla || null,
             imagenUrl: data.imagen || null,
         };
-        const response = await api.put(`/api/productos/${id}`, dto);
+        const response = await api.put(`/api/v1/productos/${id}`, dto);
         return response.data;
     } catch (error) {
         handleError(error);
@@ -63,7 +63,7 @@ const update = async (id, data) => {
 
 const remove = async (id) => {
     try {
-        await api.delete(`/api/productos/${id}`);
+        await api.delete(`/api/v1/productos/${id}`);
     } catch (error) {
         handleError(error);
     }
@@ -72,7 +72,7 @@ const remove = async (id) => {
 // Funciones para selects
 const getCategorias = async () => {
     try {
-        const response = await api.get('/api/categorias');
+        const response = await api.get('/api/v1/categorias');
         return response.data;
     } catch (error) {
         handleError(error);
@@ -81,7 +81,7 @@ const getCategorias = async () => {
 
 const getMarcas = async () => {
     try {
-        const response = await api.get('/api/marcas');
+        const response = await api.get('/api/v1/marcas');
         return response.data;
     } catch (error) {
         handleError(error);
@@ -90,7 +90,7 @@ const getMarcas = async () => {
 
 const getTallas = async () => {
     try {
-        const response = await api.get('/api/tallas');
+        const response = await api.get('/api/v1/tallas');
         return response.data;
     } catch (error) {
         handleError(error);

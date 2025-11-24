@@ -7,6 +7,7 @@ import { addProductToCart } from "../data/cart";
 function Products() {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [addedId, setAddedId] = useState(null);
 
   useEffect(() => {
     const fetchProductos = async () => {
@@ -31,7 +32,8 @@ function Products() {
       quantity: 1
     });
 
-    alert("Producto agregado al carrito");
+    setAddedId(producto.id);
+    setTimeout(() => setAddedId(null), 2000);
   };
 
   if (loading) {
@@ -105,6 +107,11 @@ function Products() {
                 >
                   Comprar
                 </Button>
+                {addedId === p.id && (
+                  <div className="text-success text-center mt-2 fw-bold">
+                    ¡Agregado!
+                  </div>
+                )}
               </Card.Body>
 
             </Card>
