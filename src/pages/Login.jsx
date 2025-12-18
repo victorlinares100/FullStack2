@@ -6,7 +6,7 @@ import Text from "../components/atoms/Text";
 import Mensaje from "../components/atoms/Mensaje";
 import usuarioService from "../services/usuarioService";
 import logo from "../assets/img/aurea_logo_con.webp";
-import {Link} from "react-router-dom";  
+import { Link } from "react-router-dom";
 import { validateLogin } from "../utils/validators";
 import { useUser } from "../context/UserContext";
 
@@ -21,40 +21,38 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors({}); // Eso limpia errores anteriores
+    setErrors({});
     setMensaje(null);
 
-    // Validacion de campos
     const newErrors = validateLogin(correo, password);
-
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
-    const credenciales = {
-      correo: correo,
-      contrasena: password
-    };
-
     try {
-      const data = await usuarioService.login(credenciales);
-      // Guardar el usuario en el contexto
-      const userToSave = data.usuario || data; 
-      login(userToSave);
-      
+      // 1. Llamada al servicio
+      const data = await usuarioService.login({ correo, contrasena: password });
+
+      // 2. Extraer token y datos según la estructura del backend (AuthController)
+      const { token, usuario, rol } = data;
+
+      // 3. Guardar en el contexto usando la función ajustada
+      login({ nombre: usuario, rol: rol }, token);
+
       setMensaje({ tipo: "success", texto: "Inicio de sesión exitoso" });
 
+      // 4. Redirección basada en el rol
       setTimeout(() => {
-        if (userToSave.rol && userToSave.rol.toUpperCase() === "ADMIN") {
+        if (rol && rol.toUpperCase() === "ADMIN") {
           navigate("/admin");
         } else {
           navigate("/");
         }
       }, 1500);
+
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        // Credenciales incorrectas
         setMensaje({ tipo: "danger", texto: "Correo o contraseña incorrectos." });
       } else {
         setMensaje({ tipo: "danger", texto: "No se pudo conectar con el servidor." });
@@ -66,10 +64,10 @@ function Login() {
     <Container className="my-5 d-flex flex-column align-items-center">
       <div className="text-center mb-4">
         <Link to="/">
-          <img 
-            src={logo} 
-            alt="Logo Aurea" 
-            style={{ width: "150px", height: "auto", borderRadius: "50%" }} 
+          <img
+            src={logo}
+            alt="Logo Aurea"
+            style={{ width: "150px", height: "auto", borderRadius: "50%" }}
             className="mb-3"
           />
         </Link>

@@ -15,6 +15,7 @@ import HomeAdmin from './pages/Admin';
 import ProductsAdmin from './pages/ProductsAdmin';
 import FixedFooter from './components/organisms/FixedFooter';
 import NotFound from './pages/NotFound';
+import ProtectedRoute from './components/admin/ProtectedRoute';
 
 function App() {
   const { pathname } = useLocation();
@@ -40,7 +41,7 @@ function App() {
   // Lógica para ocultar componentes
   const isAdminRoute = pathname.startsWith("/admin") || pathname.startsWith("/productosAdmin");
   const hideNavBar = ["/registro", "/login"].includes(pathname) || isAdminRoute || isNotFound;
-  const hideFooter = ["/login", "/registro", "/carrito", "/contacto", "/nosotros","/products"].includes(pathname.toLowerCase()) || isAdminRoute || isNotFound;
+  const hideFooter = ["/login", "/registro", "/carrito", "/contacto", "/nosotros", "/products"].includes(pathname.toLowerCase()) || isAdminRoute || isNotFound;
   const hideFixedFooter = ["/", "/blog"].includes(pathname) || isAdminRoute || isNotFound;
 
   return (
@@ -49,6 +50,7 @@ function App() {
 
       <main style={{ flex: 1 }}>
         <Routes>
+          {/* Rutas Públicas */}
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<ProductDetail />} />
@@ -58,11 +60,13 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/carrito" element={<Carrito />} />
-          
-          {/* Admin */}
-          <Route path="/admin" element={<HomeAdmin />} />
-          <Route path="/productosAdmin" element={<ProductsAdmin />} />
-          
+
+          {/* Rutas Protegidas de Admin */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/admin" element={<HomeAdmin />} />
+            <Route path="/productosAdmin" element={<ProductsAdmin />} />
+          </Route>
+
           {/* Ruta 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>

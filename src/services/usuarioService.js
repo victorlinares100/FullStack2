@@ -8,16 +8,11 @@ const registrar = async (datosUsuario) => {
     return response.data;
 };
 
-// Función para iniciar sesión
+// Modificado para no duplicar lógica de localStorage aquí
 const login = async (credenciales) => {
     const response = await api.post('api/v1/auth/login', credenciales);
-    
-    if (response.data){
-        localStorage.setItem("usuarioLogueado", JSON.stringify(response.data.usuario));
-    }
-    return response.data;
+    return response.data; // Devuelve { token, usuario, rol }
 }
-
 // Función para cerrar sesión
 const logout = () => {
     localStorage.removeItem("usuarioLogueado");
