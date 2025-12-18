@@ -1,44 +1,134 @@
-/* === Estilos específicos de la página de contacto === */
 
+:root {
+    --gold-primary: #C5A25D;
+    --gold-dark: #a88948;
+    --gold-light: #f9f1d8;
+    --dark-blue: #0A2540;
+    --white: #ffffff;
+    --bg-gray: #f8f9fa; /* Fondo suave para la página */
+}
+
+/* Fondo general de la sección para que resalte la tarjeta */
+.contact-section {
+    background-color: var(--bg-gray);
+    padding: 3rem 1rem;
+    min-height: 80vh; /* Asegura que ocupe buena parte de la pantalla */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* La Tarjeta del Formulario */
 form {
-  background-color: #fff;
-  max-width: 450px; /* AUMENTAMOS el ancho para dar espacio al botón y enlaces */
-  margin: 40px auto;
-  padding: 30px 25px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--white);
+    max-width: 500px; /* Un poco más ancho que el login para el mensaje */
+    width: 100%;
+    margin: 0 auto;
+    padding: 3rem 2.5rem; /* Más espacio interno */
+    border-radius: 12px;   /* Bordes más redondeados y modernos */
+    
+    /* Sombra suave idéntica a la que te di para productos/admin */
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0,0,0,0.05);
 }
 
-/* ... (otros estilos de input, label, button, etc.) ... */
-
-/* ESTILOS CLAVE PARA LOS ENLACES */
-
-/* Asegura que los enlaces y el separador estén en línea */
-.links-container {
-  /* Si el flex en el HTML no es suficiente, descomenta estas líneas */
-  display: flex;
-  align-items: center;
-  /* Elimina cualquier flex-direction: column; si existe */
+/* Título del Formulario */
+h2 {
+    color: var(--gold-primary);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 800;
+    font-size: 2rem;
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
 }
 
-/* El estilo del separador */
-.separator {
-  color: var(--blue);
-  /* Espacio pequeño y uniforme a los lados del punto/círculo */
-  margin: 0 4px; /* 4px a la izquierda y 4px a la derecha */
-  line-height: 1; /* Para que el separador se alinee bien verticalmente */
+/* Etiquetas (Labels) */
+.form-label {
+    color: var(--dark-blue);
+    font-weight: 600; /* Un poco más gordita la letra */
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
 }
 
-/* El estilo de los enlaces */
-.links-container a {
-  color: var(blue);
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
-  white-space: nowrap; /* MUY IMPORTANTE: Evita que el texto se rompa en varias líneas */
+/* Inputs y Textarea */
+.form-control {
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 15px; /* Más cómodo para escribir */
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    color: var(--dark-blue);
 }
 
-.links-container a:hover {
-  color: var(blue);
-  text-decoration: underline;
+/* Efecto Focus (Cuando haces clic para escribir) - IGUAL AL LOGIN */
+.form-control:focus {
+    border-color: var(--gold-primary);
+    box-shadow: 0 0 0 4px rgba(197, 162, 93, 0.15); /* Halo dorado suave */
+    outline: none;
+}
+
+/* Botón de Enviar (Estilo Login) */
+.btn-contact, button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: white;
+    background-color: var(--gold-primary);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(197, 162, 93, 0.3);
+}
+
+.btn-contact:hover, button[type="submit"]:hover {
+    background-color: var(--gold-dark);
+    transform: translateY(-2px); /* Se eleva un poquito al pasar el mouse */
+    box-shadow: 0 6px 12px rgba(197, 162, 93, 0.4);
+}
+
+/* Alertas de Éxito o Error */
+.alert {
+    border-radius: 8px;
+    border: none;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.alert-success {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.alert-danger {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+/* Estilos para enlaces si tienes alguno (email, redes, etc) */
+.contact-links {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.contact-links a {
+    color: var(--gold-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.contact-links a:hover {
+    color: var(--gold-dark);
+    text-decoration: underline;
 }
