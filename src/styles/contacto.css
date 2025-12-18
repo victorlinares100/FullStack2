@@ -1,20 +1,20 @@
 
 :root {
-    --gold-primary: #C5A25D;
-    --gold-dark: #a88948;
-    --dark-blue: #0A2540;
+    --blue-primary: #1e3a8a;  
+    --blue-dark: #172554;     /* Azul más oscuro para el hover */
+    --text-dark: #1e293b;     /* Texto gris oscuro */
     --white: #ffffff;
-    --bg-gray: #f8f9fa;
+    --bg-light: #f1f5f9;      /* Fondo gris azulado muy suave */
 }
 
 /* Fondo de la página */
 .contact-section {
-    background-color: var(--bg-gray);
+    background-color: var(--bg-light);
     padding: 3rem 1rem;
-    min-height: 90vh; /* Ocupa casi toda la pantalla */
+    min-height: 90vh;
     display: flex;
     justify-content: center;
-    align-items: center; /* Centra la tarjeta verticalmente */
+    align-items: center;
 }
 
 /* La Tarjeta del Formulario */
@@ -24,81 +24,89 @@ form {
     width: 100%;
     margin: 0 auto;
     padding: 2.5rem;
-    border-radius: 16px; /* Bordes bien redondeados */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Sombra elegante */
-    border: 1px solid rgba(0,0,0,0.02);
+    border-radius: 16px;
+    /* Sombra azulada muy suave para dar profundidad */
+    box-shadow: 0 10px 30px rgba(30, 58, 138, 0.1); 
+    border: 1px solid rgba(30, 58, 138, 0.05);
 }
 
 /* Título */
 form h2 {
-    color: var(--gold-primary);
+    color: var(--blue-primary); /* Ahora es AZUL */
     text-align: center;
     margin-bottom: 2rem;
     font-weight: 800;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     font-size: 1.8rem;
+    text-transform: uppercase;
 }
 
 /* Labels (Etiquetas) */
 .form-label {
-    color: var(--dark-blue);
+    color: var(--text-dark);
     font-weight: 600;
     margin-bottom: 0.5rem;
 }
 
 /* Inputs */
 .form-control {
-    border: 2px solid #eef2f6; /* Borde gris muy suave por defecto */
+    border: 2px solid #e2e8f0;
     border-radius: 10px;
     padding: 12px;
     font-size: 1rem;
     transition: all 0.3s ease;
+    color: var(--text-dark);
 }
 
+/* Efecto Focus (Cuando escribes) */
 .form-control:focus {
-    border-color: var(--gold-primary);
-    box-shadow: 0 0 0 4px rgba(197, 162, 93, 0.15);
+    border-color: var(--blue-primary); /* Borde azul al escribir */
+    /* Halo de luz azul suave */
+    box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.15); 
+    outline: none;
 }
 
-/* Botón - Ahora sí ocupará todo el ancho */
+/* Botón - Azul y Ancho */
 .btn-contact {
     width: 100%;
     padding: 14px;
-    background-color: var(--gold-primary) !important;
+    background-color: var(--blue-primary) !important; /* Fondo AZUL */
     border: none !important;
     color: white;
     font-weight: 700;
     font-size: 1.1rem;
     border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    margin-bottom: 1.5rem; /* Empuja los enlaces hacia abajo */
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+    /* Sombra del botón azulada */
+    box-shadow: 0 4px 10px rgba(30, 58, 138, 0.3);
 }
 
 .btn-contact:hover {
-    background-color: var(--gold-dark) !important;
+    background-color: var(--blue-dark) !important; /* Azul más oscuro */
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(197, 162, 93, 0.4);
+    box-shadow: 0 6px 15px rgba(30, 58, 138, 0.4);
 }
 
-/* --- NUEVO: Pie de formulario (Enlaces) --- */
+/* --- Pie de formulario (Enlaces) --- */
 .form-footer {
     text-align: center;
     font-size: 0.9rem;
-    border-top: 1px solid #f1f5f9; /* Línea separadora sutil */
+    border-top: 1px solid #e2e8f0;
     padding-top: 1.5rem;
     color: #64748b;
 }
 
 .form-footer a {
-    color: var(--dark-blue);
+    color: #64748b; /* Gris por defecto */
     text-decoration: none;
     font-weight: 600;
     transition: color 0.2s;
 }
 
 .form-footer a:hover {
-    color: var(--gold-primary);
+    color: var(--blue-primary); /* Se pone AZUL al pasar el mouse */
     text-decoration: underline;
 }
 
@@ -106,4 +114,10 @@ form h2 {
 .separator {
     margin: 0 10px;
     color: #cbd5e1;
+}
+
+/* Estilos de las alertas (Mensajes de éxito/error) */
+.alert {
+    border-radius: 8px;
+    font-weight: 500;
 }

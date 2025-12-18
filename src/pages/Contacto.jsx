@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap"; // Ya no necesitamos Container
+import { Form, Button } from "react-bootstrap"; 
 import { Link } from "react-router-dom";
 import Input from "../components/molecules/Input";
 import Mensaje from "../components/atoms/Mensaje";
 import { validateContacto } from "../utils/validators";
 import { useUser } from "../context/UserContext";
+
+// Asegúrate de importar tu CSS aquí si no es global
+import "../styles/contacto.css"; 
 
 function Contacto() {
   const [nombre, setNombre] = useState("");
@@ -17,7 +20,7 @@ function Contacto() {
   // Autocompletar correo si hay usuario logueado
   useEffect(() => {
     if (user && user.correo) {
-      setCorreo(user.correo);
+      setCorreo(user.correo); 
     }
   }, [user]);
 
@@ -46,16 +49,13 @@ function Contacto() {
     const esUsuarioLogueado = user && user.correo === correo;
 
     if (!usuarioExiste && !esUsuarioLogueado) {
-      setMensaje({
-        tipo: "danger",
-        texto: "El correo ingresado no está registrado en nuestra base de datos."
-      });
+      setMensaje({ tipo: "danger", texto: "El correo ingresado no está registrado en nuestra base de datos." });
       return;
     }
 
     // Simulación de envío exitoso
     setMensaje({ tipo: "success", texto: "¡Mensaje enviado correctamente!" });
-
+    
     if (!user) {
       setCorreo("");
     }
@@ -64,13 +64,13 @@ function Contacto() {
   };
 
   return (
+    // Usamos la clase contact-section del CSS para el fondo gris
     <div className="contact-section">
       <Form onSubmit={handleSubmit}>
         
-        {/* Título Estilizado */}
+        {/* Título (h2 toma el color dorado del CSS) */}
         <h2>Contacto</h2>
 
-        {/* Mensaje de alerta */}
         {mensaje && (
           <Mensaje
             variant={mensaje.tipo}
@@ -79,7 +79,6 @@ function Contacto() {
           />
         )}
 
-        {/* Inputs */}
         <Input
           id="nombre"
           label="Nombre:"
@@ -95,7 +94,7 @@ function Contacto() {
           type="email"
           value={correo}
           onChange={(e) => setCorreo(e.target.value)}
-          readOnly={!!user}
+          readOnly={!!user} 
           error={errors.correo}
         />
 
@@ -109,19 +108,22 @@ function Contacto() {
           error={errors.contenido}
         />
 
-        {/* Botón Full Ancho */}
+        {/* --- CAMBIO AQUÍ --- */}
+        {/* Quitamos el d-flex para que el botón ocupe todo el ancho arriba */}
+        
         <Button type="submit" className="btn-contact">
           Enviar Mensaje
         </Button>
 
-        {/* Pie de página con enlaces separados */}
+        {/* Los enlaces van abajo en su propio contenedor form-footer */}
         <div className="form-footer">
-          <span className="text-muted">¿No tienes cuenta? </span>
-          <Link to="/Registro">Registro de Usuario</Link>
-          
-          <span className="separator">•</span>
-          
-          <Link to="/login">Inicio de Sesión</Link>
+          <span>
+            <Link to="/Registro">Registro de Usuario</Link>
+          </span>
+          <span className="separator">·</span>
+          <span>
+            <Link to="/login">Inicio de Sesión</Link>
+          </span>
         </div>
         
       </Form>
