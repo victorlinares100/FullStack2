@@ -124,7 +124,6 @@ function CreateModalProductos({
                     <option value="">Seleccione...</option>
                     {input.options?.map((opt) => (
                       <option key={opt.id} value={opt.id}>
-                        {/* AQUÍ ESTÁ EL CAMBIO INTEGRADO: */}
                         {opt.nombre || opt.nombreMarca || opt.tipoCategoria || opt.tipoTalla}
                       </option>
                     ))}
