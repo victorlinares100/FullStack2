@@ -1,44 +1,93 @@
+/* --- Estilos Globales Modernizados --- */
+
+/* Reset básico para evitar problemas de medidas */
+* {
+  box-sizing: border-box;
+}
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  color: #333;
-  line-height: 1.6;
+  /* Fuente moderna nativa del sistema (más nítida que Arial) */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: #f3f4f6; /* Un gris un poco más azulado y moderno */
+  color: #334155; /* Gris oscuro suave, no negro puro (descansa la vista) */
+  line-height: 1.7; /* Mayor altura de línea para mejor lectura */
   margin: 0;
   padding: 0;
 }
 
-
+/* --- Header con degradado sutil --- */
 header {
-  background-color: #1e3a8a;
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); /* Degradado moderno manteniendo tu azul */
   color: #fff;
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 3rem 1rem; /* Más alto para dar importancia */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 2.25rem;
+  font-weight: 800; /* Letra bien gordita */
+  letter-spacing: -0.025em; /* Un poquito más juntas las letras */
 }
 
-
+/* --- Contenedor Principal estilo "Tarjeta Flotante" --- */
 main.container {
   max-width: 900px;
-  margin: 2rem auto;
-  padding: 1rem;
+  margin: -2rem auto 3rem; /* Margen negativo arriba para que "monte" sobre el header */
+  padding: 2.5rem;
   background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 16px; /* Bordes más redondeados */
+  
+  /* Sombra suave y moderna (difusa) */
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  position: relative; /* Necesario para que flote sobre el header */
 }
 
+/* --- Títulos Internos --- */
 main h2 {
   color: #1e3a8a;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-bottom: 2px solid #e2e8f0; /* Línea separadora sutil */
+  padding-bottom: 0.5rem;
 }
 
-
+/* --- Listas --- */
 main ul {
-  list-style-type: disc;
-  margin-left: 20px;
+  list-style-type: none; /* Quitamos los puntos feos por defecto */
+  margin: 0;
+  padding: 0;
 }
 
+main ul li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Creamos puntos personalizados más bonitos */
+main ul li::before {
+  content: "•";
+  color: #2563eb; /* Color azul vibrante para el punto */
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+
+/* Enlaces (si los hay dentro) */
+a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: #1e3a8a;
+  text-decoration: underline;
+}
