@@ -7,12 +7,7 @@ const registrar = async (datosUsuario) => {
 };
 
 const login = async (credenciales) => {
-    // CAMBIO IMPORTANTE: de 'auth/login' a 'usuarios/login'
-    const response = await api.post('api/v1/usuarios/login', credenciales);
-
-    // Al hacer este log, ahora deberías ver solo: { token, nombre, rol }
-    console.log("Data desde el service:", response.data);
-
+    const response = await api.post('api/v1/auth/login', credenciales); // Cambiado de usuarios/login a auth/login
     return response.data;
 }
 const usuarioService = { registrar, login };
