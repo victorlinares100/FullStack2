@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Container, Form, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap"; // Ya no necesitamos Container
 import { Link } from "react-router-dom";
 import Input from "../components/molecules/Input";
 import Mensaje from "../components/atoms/Mensaje";
-import Text from "../components/atoms/Text";
 import { validateContacto } from "../utils/validators";
 import { useUser } from "../context/UserContext";
 
@@ -18,7 +17,7 @@ function Contacto() {
   // Autocompletar correo si hay usuario logueado
   useEffect(() => {
     if (user && user.correo) {
-      setCorreo(user.correo); 
+      setCorreo(user.correo);
     }
   }, [user]);
 
@@ -47,13 +46,16 @@ function Contacto() {
     const esUsuarioLogueado = user && user.correo === correo;
 
     if (!usuarioExiste && !esUsuarioLogueado) {
-      setMensaje({ tipo: "danger", texto: "El correo ingresado no está registrado en nuestra base de datos." });
+      setMensaje({
+        tipo: "danger",
+        texto: "El correo ingresado no está registrado en nuestra base de datos."
+      });
       return;
     }
 
     // Simulación de envío exitoso
     setMensaje({ tipo: "success", texto: "¡Mensaje enviado correctamente!" });
-    
+
     if (!user) {
       setCorreo("");
     }
@@ -62,20 +64,22 @@ function Contacto() {
   };
 
   return (
-    <Container className="my-5 contacto-page">
-      <Text variant="h2" className="text-center mb-4">
-        Contacto
-      </Text>
-
-      {mensaje && (
-        <Mensaje
-          variant={mensaje.tipo}
-          text={mensaje.texto}
-          onClose={() => setMensaje(null)}
-        />
-      )}
-
+    <div className="contact-section">
       <Form onSubmit={handleSubmit}>
+        
+        {/* Título Estilizado */}
+        <h2>Contacto</h2>
+
+        {/* Mensaje de alerta */}
+        {mensaje && (
+          <Mensaje
+            variant={mensaje.tipo}
+            text={mensaje.texto}
+            onClose={() => setMensaje(null)}
+          />
+        )}
+
+        {/* Inputs */}
         <Input
           id="nombre"
           label="Nombre:"
@@ -91,7 +95,7 @@ function Contacto() {
           type="email"
           value={correo}
           onChange={(e) => setCorreo(e.target.value)}
-          readOnly={!!user} // Si está logueado, no permitir editar
+          readOnly={!!user}
           error={errors.correo}
         />
 
@@ -105,22 +109,23 @@ function Contacto() {
           error={errors.contenido}
         />
 
-        <div className="d-flex align-items-center gap-3 mt-3">
-          <Button type="submit" variant="primary">
-            Enviar Mensaje
-          </Button>
-          <div className="links-container">
-            <span>
-              <Link to="/Registro">Registro de Usuario</Link>
-            </span>
-            <span className="separator">·</span>
-            <span>
-              <Link to="/login">Inicio de Sesión</Link>
-            </span>
-          </div>
+        {/* Botón Full Ancho */}
+        <Button type="submit" className="btn-contact">
+          Enviar Mensaje
+        </Button>
+
+        {/* Pie de página con enlaces separados */}
+        <div className="form-footer">
+          <span className="text-muted">¿No tienes cuenta? </span>
+          <Link to="/Registro">Registro de Usuario</Link>
+          
+          <span className="separator">•</span>
+          
+          <Link to="/login">Inicio de Sesión</Link>
         </div>
+        
       </Form>
-    </Container>
+    </div>
   );
 }
 
