@@ -1,8 +1,4 @@
-/* =========================================
-   TUS ESTILOS ORIGINALES (CARRUSEL Y NAV)
-   ========================================= */
 
-/* --- Nuevo Estilo para limitar la altura del carrusel --- */
 .carousel-limit-height {
   height: 400px;
   background-color: #f8f9fa;
@@ -196,7 +192,6 @@
   box-shadow: 4px 0 10px rgba(0,0,0,0.1);
 }
 
-/* Título del Sidebar */
 .admin-sidebar h2 {
   font-size: 1.1rem;
   font-weight: 800;
@@ -205,6 +200,9 @@
   padding-bottom: 1rem;
   border-bottom: 1px solid rgba(255,255,255,0.2);
   text-align: center;
+  
+  /* --- ESTA ES LA SOLUCIÓN --- */
+  color: #ffffff !important; /* Forzamos el blanco puro */
 }
 
 /* 3. Enlaces (Links) del Sidebar */
