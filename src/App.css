@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -41,3 +43,46 @@
   color: #888;
 }
 
+
+
+body {
+  font-family: 'Inter', sans-serif; 
+}
+
+
+.btn {
+  font-weight: 600 !important;      
+  letter-spacing: 0.03em !important; 
+  border-radius: 8px !important;    
+  padding: 10px 20px !important;    
+  text-transform: capitalize;       
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.btn:hover {
+  transform: translateY(-2px);      
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+
+.card {
+  border: none !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+}
+
+.card-title {
+  font-weight: 700 !important;
+  color: #1e293b;
+}
+
+.card-text {
+  color: #64748b;
+}

@@ -1,12 +1,15 @@
+/* AdminStyles.css - Versión corregida con Sidebar Azul */
 :root {
-  --primary: #0f172a;    /* Slate 900 - Oscuro elegante */
-  --secondary: #4f46e5;  /* Indigo 600 - Vibrante moderno */
-  --light-bg: #f8fafc;   /* Slate 50 - Fondo limpio */
-  --text-main: #334155;  /* Slate 700 */
-  --text-muted: #64748b; /* Slate 500 */
+  /* Azul profundo para el sidebar (Tu color de identidad) */
+  --primary: #1e3a8a;    
+  /* Indigo vibrante para acciones/botones */
+  --secondary: #4f46e5;  
+  /* Fondo general gris muy claro */
+  --light-bg: #f8fafc;   
+  --text-main: #334155;
+  --text-muted: #64748b;
   --white: #ffffff;
   --radius: 12px;
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .admin-layout {
@@ -14,27 +17,30 @@
   min-height: 100vh;
   background: var(--light-bg);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  color: var(--text-main);
 }
 
+/* --- AQUÍ ESTÁ EL CAMBIO: SIDEBAR AZUL --- */
 .admin-sidebar {
   width: 260px;
-  background: var(--white);
-  border-right: 1px solid #e2e8f0;
+  background: var(--primary); /* Fondo Azul */
+  color: white;               /* Texto Blanco */
   padding: 32px 24px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  box-shadow: 4px 0 24px rgba(0,0,0,0.05);
 }
 
 .admin-sidebar h2 {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.6); /* Blanco semitransparente */
   margin-bottom: 24px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
   padding-left: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 15px;
 }
 
 .admin-link {
@@ -44,107 +50,40 @@
   border-radius: var(--radius);
   font-size: 0.95rem;
   font-weight: 500;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.8); /* Texto gris claro */
   text-decoration: none;
   transition: all 0.2s ease;
 }
 
 .admin-link:hover {
-  background: #f1f5f9;
-  color: var(--primary);
+  background: rgba(255, 255, 255, 0.15); /* Efecto cristal al pasar mouse */
+  color: white;
   transform: translateX(4px);
 }
 
 .admin-link.active {
-  background: var(--secondary);
+  background: var(--secondary); /* Botón activo resaltado */
   color: white;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* Contenido Principal */
 .admin-content {
   flex: 1;
   padding: 40px;
-  max-width: 1600px;
-  margin: 0 auto;
+  overflow-y: auto; /* Permite scroll si la tabla es larga */
 }
 
-/* Tablas Modernas */
+/* Ajustes de Tabla para que resalte sobre el fondo claro */
 .admin-table-container {
-  overflow: hidden;
-  border-radius: var(--radius);
-  border: 1px solid #e2e8f0;
-}
-
-table {
-  width: 100%;
-  border-collapse: separate; 
-  border-spacing: 0;
   background: white;
-}
-
-thead {
-  background: #f8fafc;
-}
-
-th {
-  padding: 16px 24px;
-  text-align: left;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  border-bottom: 1px solid #e2e8f0;
-  letter-spacing: 0.05em;
-}
-
-td {
-  padding: 16px 24px;
-  border-bottom: 1px solid #f1f5f9;
-  vertical-align: middle;
-  font-size: 0.95rem;
-  color: var(--text-main);
-}
-
-tr:last-child td {
-  border-bottom: none;
-}
-
-tr:hover td {
-  background-color: #f8fafc;
-}
-
-/* Modales */
-.modal-content {
-  border: none !important;
-  border-radius: 16px !important;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
-.modal-header {
-  border-bottom: 1px solid #f1f5f9 !important;
-  padding: 24px !important;
-  background: #fff;
-}
-
-.modal-body {
-  padding: 24px !important;
-}
-
-.modal-footer {
-  border-top: 1px solid #f1f5f9 !important;
-  padding: 24px !important;
-  background: #f8fafc;
-}
-
-.form-control, .form-select {
-  padding: 12px 16px !important;
-  border-radius: 8px !important;
-  border: 1px solid #e2e8f0 !important;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
-}
-
-.form-control:focus, .form-select:focus {
-  border-color: var(--secondary) !important;
-  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1) !important;
-}
+table { width: 100%; border-collapse: collapse; }
+thead { background: #f1f5f9; }
+th { padding: 16px; text-align: left; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
+td { padding: 16px; border-bottom: 1px solid #e2e8f0; color: var(--text-main); }
+tr:hover td { background-color: #f8fafc; }
