@@ -1,45 +1,87 @@
-/* src/styles/Products.css */
+/* --- Estilos Modernos para la Página de Productos --- */
 
-/* Contenedor general de productos */
-.products-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* Centra las tarjetas */
-  gap: 1.5rem; /* Espacio entre tarjetas */
+/* Input del Buscador */
+.search-input-group {
+    border: 1px solid #e2e8f0;
+    border-radius: 50px; /* Redondeado completo */
+    overflow: hidden;
+    padding: 5px 15px;
+    background: white;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-/* Tarjeta individual */
-.product-card {
-  width: 50rem; /* Mantener tamaño uniforme */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-  transition: transform 0.2s ease-in-out;
+.search-input-group:focus-within {
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    border-color: #4f46e5;
 }
 
-.product-card:hover {
-  transform: scale(1.03); /* Efecto hover */
+/* Tarjeta de Producto */
+.product-card-modern {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+    overflow: hidden;
 }
 
-/* Imagen */
-.product-card img {
-  width: 100%;
-  height: 200px; /* Altura fija para uniformidad */
-  object-fit: cover; /* Ajusta la imagen dentro del contenedor sin deformarla */
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
+.product-card-modern:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-/* Card body */
-.product-card .card-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 1rem;
+/* Contenedor de Imagen */
+.card-img-wrapper {
+    height: 220px;
+    position: relative;
+    background-color: #f8fafc;
+    overflow: hidden;
 }
 
-/* Botón */
-.product-card .btn {
-  margin-top: auto; /* Para que siempre quede al final del card-body */
+.card-img-custom {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card-modern:hover .card-img-custom {
+    transform: scale(1.08); /* Efecto Zoom suave */
+}
+
+/* Badge de Categoría sobre la imagen */
+.category-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #475569;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-transform: uppercase;
+}
+
+/* Botones Personalizados */
+.btn-primary-custom {
+    background-color: #4f46e5 !important; /* Indigo */
+    border: none !important;
+    border-radius: 10px !important;
+}
+
+.btn-primary-custom:hover {
+    background-color: #4338ca !important;
+    transform: translateY(-1px);
+}
+
+.btn-success-custom {
+    background-color: #10b981 !important; /* Verde Esmeralda */
+    border: none !important;
+    border-radius: 10px !important;
+}
+
+/* Utilidad para transición suave */
+.transition-all {
+    transition: all 0.2s ease-in-out;
 }
