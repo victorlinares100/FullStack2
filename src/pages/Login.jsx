@@ -1,22 +1,20 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Input from "../components/molecules/Input";
 import Text from "../components/atoms/Text";
 import Mensaje from "../components/atoms/Mensaje";
 import usuarioService from "../services/usuarioService";
-import logo from "../assets/img/aurea_logo_con.webp";
-import { Link } from "react-router-dom";
 import { validateLogin } from "../utils/validators";
 import { useUser } from "../context/UserContext";
+import logo from "../assets/img/aurea_logo_con.webp";
 
 function Login() {
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
   const [mensaje, setMensaje] = useState(null);
-  const [errors, setErrors] = useState({}); // Constante para Errores de validación
+  const [errors, setErrors] = useState({});
   const { login } = useUser();
-
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -31,18 +29,23 @@ function Login() {
     }
 
     try {
-      // 1. Llamada al servicio
       const data = await usuarioService.login({ correo, contrasena: password });
 
-      // 2. Extraer token y datos según la estructura del backend (AuthController)
-      const { token, usuario, rol } = data;
+      console.log("DEBUG - Respuesta completa del service:", data);
 
-      // 3. Guardar en el contexto usando la función ajustada
-      login({ nombre: usuario, rol: rol }, token);
+      // DESTRUCTURACIÓN CLAVE: Deben llamarse igual que en el backend (Map response)
+      const { token, nombre, rol } = data;
 
-      setMensaje({ tipo: "success", texto: "Inicio de sesión exitoso" });
+      if (!token) {
+        setMensaje({ tipo: "danger", texto: "Error: No se recibió el token de seguridad." });
+        return;
+      }
 
-      // 4. Redirección basada en el rol
+      // Guardamos el objeto { nombre, rol } para que Navbar.jsx lea user.nombre
+      login({ nombre, rol }, token);
+
+      setMensaje({ tipo: "success", texto: "¡Bienvenido, " + nombre + "!" });
+
       setTimeout(() => {
         if (rol && rol.toUpperCase() === "ADMIN") {
           navigate("/admin");
@@ -52,66 +55,24 @@ function Login() {
       }, 1500);
 
     } catch (error) {
-      if (error.response && error.response.status === 401) {
-        setMensaje({ tipo: "danger", texto: "Correo o contraseña incorrectos." });
-      } else {
-        setMensaje({ tipo: "danger", texto: "No se pudo conectar con el servidor." });
-      }
+      const msg = error.response?.status === 401 ? "Correo o clave incorrectos." : "Error de servidor.";
+      setMensaje({ tipo: "danger", texto: msg });
     }
   };
 
   return (
     <Container className="my-5 d-flex flex-column align-items-center">
       <div className="text-center mb-4">
-        <Link to="/">
-          <img
-            src={logo}
-            alt="Logo Aurea"
-            style={{ width: "150px", height: "auto", borderRadius: "50%" }}
-            className="mb-3"
-          />
-        </Link>
+        <Link to="/"><img src={logo} alt="Logo" style={{ width: "150px" }} /></Link>
         <Text variant="h2">Iniciar Sesión</Text>
       </div>
-
       <div style={{ width: "100%", maxWidth: "400px" }}>
-        {mensaje && (
-          <Mensaje
-            variant={mensaje.tipo}
-            text={mensaje.texto}
-            onClose={() => setMensaje(null)}
-          />
-        )}
-
+        {mensaje && <Mensaje variant={mensaje.tipo} text={mensaje.texto} onClose={() => setMensaje(null)} />}
         <Form onSubmit={handleSubmit} noValidate>
-          <Input
-            id="correo"
-            label="Correo electrónico:"
-            type="email"
-            value={correo}
-            onChange={(e) => setCorreo(e.target.value)}
-            error={errors.correo}
-          />
-
-          <Input
-            id="password"
-            label="Contraseña:"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            error={errors.password}
-          />
-
-          <Button type="submit" variant="primary" className="w-100 mt-3">
-            Iniciar Sesión
-          </Button>
+          <Input id="correo" label="Correo:" type="email" value={correo} onChange={(e) => setCorreo(e.target.value)} error={errors.correo} />
+          <Input id="password" label="Clave:" type="password" value={password} onChange={(e) => setPassword(e.target.value)} error={errors.password} />
+          <Button type="submit" variant="primary" className="w-100 mt-3">Entrar</Button>
         </Form>
-
-        <div className="mt-4 text-center">
-          <a href="/registro" className="text-decoration-none">
-            ¿No tienes cuenta? <strong>Regístrate aquí</strong>
-          </a>
-        </div>
       </div>
     </Container>
   );
