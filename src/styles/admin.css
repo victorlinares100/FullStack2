@@ -164,3 +164,92 @@
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
+
+
+/* src/styles/admin.css */
+
+/* Variables para colores consistentes */
+:root {
+  --admin-blue: #1e3a8a;      /* Tu azul corporativo */
+  --admin-bg: #f8fafc;        /* Fondo gris claro para el contenido */
+  --text-dark: #1e293b;
+  --white: #ffffff;
+}
+
+/* 1. Layout Principal: Divide la pantalla en Sidebar y Contenido */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--admin-bg);
+}
+
+/* 2. Sidebar Azul (Barra Lateral) */
+.admin-sidebar {
+  width: 260px;              /* Ancho fijo */
+  background-color: var(--admin-blue);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.5rem;
+  flex-shrink: 0;            /* Evita que se encoja */
+  box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+}
+
+/* Título del Sidebar */
+.admin-sidebar h2 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  text-align: center;
+}
+
+/* 3. Enlaces (Links) del Sidebar */
+.admin-link {
+  color: rgba(255, 255, 255, 0.8); /* Blanco un poco transparente */
+  text-decoration: none;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+.admin-link:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Fondo cristal al pasar mouse */
+  color: white;
+  transform: translateX(5px); /* Pequeño movimiento a la derecha */
+}
+
+/* 4. Área de Contenido Principal (Derecha) */
+.admin-content {
+  flex: 1; /* Ocupa todo el espacio restante */
+  padding: 3rem;
+  overflow-y: auto;
+}
+
+/* Título de la página (Panel de Administración) */
+.admin-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+}
+
+/* 5. Tarjeta (Card) */
+.admin-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  border: 1px solid #e2e8f0;
+}
+
+.admin-card p {
+    color: #64748b;
+    font-size: 1.1rem;
+}
