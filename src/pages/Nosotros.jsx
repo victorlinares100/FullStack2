@@ -33,7 +33,7 @@ function Nosotros() {
           <Col md={6} className="mb-4 mb-md-0">
             <h2 className="section-title">¿Quiénes Somos?</h2>
             <p>
-              Aurea nació de una idea simple: hacer que la calidad sea accesible.
+              Áurea nació de una idea simple: hacer que la calidad sea accesible.
               Lo que comenzó en un pequeño garaje en Santiago se ha convertido en una
               comunidad de personas apasionadas por el diseño y la excelencia.
             </p>

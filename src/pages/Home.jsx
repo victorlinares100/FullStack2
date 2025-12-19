@@ -24,7 +24,7 @@ function Home() {
     fetchProductos();
   }, []);
 
-  // Filtramos solo los primeros 6
+  // Filtramos solo los primeros 6 para la sección de populares
   const popularProducts = productos.slice(0, 6);
 
   const carouselItems = [
@@ -50,6 +50,27 @@ function Home() {
   return (
     <>
       <Container className="py-4">
+
+        {/* SECCIÓN DE BIENVENIDA */}
+        <header className="text-center mt-5 mb-5">
+          <h1 className="display-3 fw-bold" style={{ color: '#2c3e50' }}>
+            Bienvenidos a Áurea
+          </h1>
+          <p className="lead text-muted">
+            Encuentra la mejor calidad y tendencia en un solo lugar.
+          </p>
+          <div
+            className="mx-auto"
+            style={{
+              width: '80px',
+              height: '4px',
+              backgroundColor: '#007bff',
+              borderRadius: '2px',
+              marginTop: '10px'
+            }}
+          ></div>
+        </header>
+
         <section>
           {/* CARRUSEL */}
           <div className="section-spacing mb-5">
@@ -73,7 +94,7 @@ function Home() {
             </Carousel>
           </div>
 
-          {/* TÍTULO SECCIÓN */}
+          {/* TÍTULO SECCIÓN PRODUCTOS */}
           <div className="text-center">
             <h2 className="titulo-seccion my-4">MÁS POPULARES</h2>
           </div>
@@ -83,7 +104,7 @@ function Home() {
             {popularProducts.map((p) => (
               <Col sm={12} md={6} lg={4} key={p.id} className="mb-5 d-flex">
                 <Card className="product-card-modern h-100 w-100">
-                  
+
                   {/* Imagen + Badge */}
                   <div className="card-img-wrapper">
                     {p.imagen?.url ? (
@@ -97,7 +118,7 @@ function Home() {
                         Sin imagen
                       </div>
                     )}
-                    
+
                     {/* Badge si hay poco stock */}
                     {p.stock > 0 && p.stock < 5 && (
                       <span className="badge-stock">¡Últimas unidades!</span>
@@ -107,9 +128,9 @@ function Home() {
                   {/* Cuerpo de la tarjeta */}
                   <Card.Body className="d-flex flex-column p-4">
                     <div className="mb-2">
-                       <small className="text-muted text-uppercase fw-bold">
-                         {p.categoria?.tipoCategoria || 'General'}
-                       </small>
+                      <small className="text-muted text-uppercase fw-bold">
+                        {p.categoria?.tipoCategoria || 'General'}
+                      </small>
                     </div>
 
                     <Card.Title className="card-title-custom">
@@ -121,9 +142,9 @@ function Home() {
                         ${p.precioProducto?.toLocaleString()}
                       </span>
                       {p.marca?.nombreMarca && (
-                         <span className="text-muted small border px-2 py-1 rounded">
-                           {p.marca.nombreMarca}
-                         </span>
+                        <span className="text-muted small border px-2 py-1 rounded">
+                          {p.marca.nombreMarca}
+                        </span>
                       )}
                     </div>
 
