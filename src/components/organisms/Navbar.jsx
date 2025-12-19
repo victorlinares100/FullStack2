@@ -28,6 +28,7 @@ function NavBar() {
         </span>
       )}
     </div>
+     
   );
   const CartIcon = (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-cart-fill" viewBox="0 0 16 16" style={{ color: '#C5A25D' }}>
