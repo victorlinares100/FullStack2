@@ -33,7 +33,7 @@ function Login() {
 
       console.log("DEBUG - Respuesta completa del service:", data);
 
-      // DESTRUCTURACIÓN CLAVE: Deben llamarse igual que en el backend (Map response)
+      // Deben llamarse igual que en el backend (Map response)
       const { token, nombre, rol } = data;
 
       if (!token) {

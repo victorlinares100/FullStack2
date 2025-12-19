@@ -3,6 +3,7 @@ import { Container, Carousel, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import productoService from '../services/productoService';
 import carruselPhoto from '../assets/img/carrusel_photo.webp';
+import Loader from '../components/atoms/Loader';
 
 function Home() {
   const [productos, setProductos] = useState([]);
@@ -39,14 +40,6 @@ function Home() {
     },
   ];
 
-  if (loading) {
-    return (
-      <Container className="py-5 text-center">
-        <p>Cargando catálogo...</p>
-      </Container>
-    );
-  }
-
   return (
     <>
       <Container className="py-4">
@@ -78,12 +71,14 @@ function Home() {
             <h2 className="titulo-seccion my-4">MÁS POPULARES</h2>
           </div>
 
+          {loading && <Loader />}
+
           {/* LISTA DE PRODUCTOS (Desde Base de Datos) */}
           <Row>
             {popularProducts.map((p) => (
               <Col sm={12} md={6} lg={4} key={p.id} className="mb-5 d-flex">
                 <Card className="product-card-modern h-100 w-100">
-                  
+
                   {/* Imagen + Badge */}
                   <div className="card-img-wrapper">
                     {p.imagen?.url ? (
@@ -97,7 +92,7 @@ function Home() {
                         Sin imagen
                       </div>
                     )}
-                    
+
                     {/* Badge si hay poco stock */}
                     {p.stock > 0 && p.stock < 5 && (
                       <span className="badge-stock">¡Últimas unidades!</span>
@@ -107,9 +102,9 @@ function Home() {
                   {/* Cuerpo de la tarjeta */}
                   <Card.Body className="d-flex flex-column p-4">
                     <div className="mb-2">
-                       <small className="text-muted text-uppercase fw-bold">
-                         {p.categoria?.tipoCategoria || 'General'}
-                       </small>
+                      <small className="text-muted text-uppercase fw-bold">
+                        {p.categoria?.tipoCategoria || 'General'}
+                      </small>
                     </div>
 
                     <Card.Title className="card-title-custom">
@@ -121,9 +116,9 @@ function Home() {
                         ${p.precioProducto?.toLocaleString()}
                       </span>
                       {p.marca?.nombreMarca && (
-                         <span className="text-muted small border px-2 py-1 rounded">
-                           {p.marca.nombreMarca}
-                         </span>
+                        <span className="text-muted small border px-2 py-1 rounded">
+                          {p.marca.nombreMarca}
+                        </span>
                       )}
                     </div>
 
