@@ -13,7 +13,6 @@ import Carrito from './pages/Carrito';
 import Footer from './components/organisms/Footer';
 import HomeAdmin from './pages/Admin';
 import ProductsAdmin from './pages/ProductsAdmin';
-import FixedFooter from './components/organisms/FixedFooter';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './components/admin/ProtectedRoute';
 
@@ -41,8 +40,6 @@ function App() {
   // Lógica para ocultar componentes
   const isAdminRoute = pathname.startsWith("/admin") || pathname.startsWith("/productosAdmin");
   const hideNavBar = ["/registro", "/login"].includes(pathname) || isAdminRoute || isNotFound;
-  const hideFooter = ["/login", "/registro", "/carrito", "/contacto", "/nosotros", "/products"].includes(pathname.toLowerCase()) || isAdminRoute || isNotFound;
-  const hideFixedFooter = ["/", "/blog"].includes(pathname) || isAdminRoute || isNotFound;
 
   return (
     <div className="app-container">
@@ -72,8 +69,7 @@ function App() {
         </Routes>
       </main>
 
-      {!hideFooter && <Footer />}
-      {!hideFixedFooter && <FixedFooter />}
+      <Footer />
     </div>
   );
 }

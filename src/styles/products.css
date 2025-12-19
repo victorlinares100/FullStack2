@@ -1,9 +1,7 @@
-/* --- Estilos Modernos para la Página de Productos --- */
-
 /* Input del Buscador */
 .search-input-group {
     border: 1px solid #e2e8f0;
-    border-radius: 50px; /* Redondeado completo */
+    border-radius: 50px;
     overflow: hidden;
     padding: 5px 15px;
     background: white;
@@ -45,7 +43,8 @@
 }
 
 .product-card-modern:hover .card-img-custom {
-    transform: scale(1.08); /* Efecto Zoom suave */
+    transform: scale(1.08);
+    /* Efecto Zoom suave */
 }
 
 /* Badge de Categoría sobre la imagen */
@@ -59,13 +58,14 @@
     font-size: 0.7rem;
     font-weight: 700;
     color: #475569;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-transform: uppercase;
 }
 
 /* Botones Personalizados */
 .btn-primary-custom {
-    background-color: #4f46e5 !important; /* Indigo */
+    background-color: #4f46e5 !important;
+    /* Indigo */
     border: none !important;
     border-radius: 10px !important;
 }
@@ -76,7 +76,8 @@
 }
 
 .btn-success-custom {
-    background-color: #10b981 !important; /* Verde Esmeralda */
+    background-color: #10b981 !important;
+    /* Verde Esmeralda */
     border: none !important;
     border-radius: 10px !important;
 }

@@ -4,11 +4,11 @@
 }
 
 .product-detail-image {
-  width: 50%;       /* Ajusta al tamaño que quieras */
-  max-width: 400px; /* Máximo ancho */
-  height: auto;     /* Mantener proporción */
+  width: 50%;
+  max-width: 400px;
+  height: auto;
   display: block;
-  margin: 0 auto 1rem auto; /* Centrar horizontalmente y separarla del texto */
+  margin: 0 auto 1rem auto;
   border-radius: 16px;
   object-fit: cover;
 }

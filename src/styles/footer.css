@@ -1,11 +1,70 @@
-footer {
-  position: static;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+.footer-large {
   background-color: #0b2545;
-  color: white;
-  text-align: center;
-  padding: 15px;
+
+  color: #ffffff;
+  padding-top: 20px;
+  margin-top: 80px;
+  /* Mayor separación del contenido */
+  border-top: 5px solid #143257;
 }
 
+/* Logo */
+.footer-logo-large {
+  width: 140px;
+  filter: brightness(0) invert(1);
+}
+
+.footer-description {
+  color: #869ab8;
+  font-size: 0.95rem;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+/* Títulos de sección */
+.footer-title {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+/* Enlaces más grandes y espaciados */
+.footer-links-large a {
+  color: #adb5bd;
+  text-decoration: none;
+  font-size: 1rem;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+}
+
+.footer-links-large a:hover {
+  color: #ffffff;
+  padding-left: 5px;
+}
+
+/* Información de contacto */
+.footer-contact-info p {
+  color: #adb5bd;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+/* Barra inferior ancha */
+.footer-bottom-wide {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 30px 0;
+  text-align: center;
+  margin-top: 20px;
+  color: #6c757d;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+
+@media (max-width: 768px) {
+  .footer-description {
+    margin: 15px auto;
+  }
+}
