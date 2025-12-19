@@ -3,6 +3,7 @@ import { Container, Carousel, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import productoService from '../services/productoService';
 import carruselPhoto from '../assets/img/carrusel_photo.webp';
+import Loader from '../components/atoms/Loader';
 
 function Home() {
   const [productos, setProductos] = useState([]);
@@ -24,7 +25,7 @@ function Home() {
     fetchProductos();
   }, []);
 
-  // Filtramos solo los primeros 6 para la sección de populares
+  // Filtramos solo los primeros 6
   const popularProducts = productos.slice(0, 6);
 
   const carouselItems = [
@@ -39,38 +40,9 @@ function Home() {
     },
   ];
 
-  if (loading) {
-    return (
-      <Container className="py-5 text-center">
-        <p>Cargando catálogo...</p>
-      </Container>
-    );
-  }
-
   return (
     <>
       <Container className="py-4">
-
-        {/* SECCIÓN DE BIENVENIDA */}
-        <header className="text-center mt-5 mb-5">
-          <h1 className="display-3 fw-bold" style={{ color: '#2c3e50' }}>
-            Bienvenidos a Áurea
-          </h1>
-          <p className="lead text-muted">
-            Encuentra la mejor calidad y tendencia en un solo lugar.
-          </p>
-          <div
-            className="mx-auto"
-            style={{
-              width: '80px',
-              height: '4px',
-              backgroundColor: '#007bff',
-              borderRadius: '2px',
-              marginTop: '10px'
-            }}
-          ></div>
-        </header>
-
         <section>
           {/* CARRUSEL */}
           <div className="section-spacing mb-5">
@@ -94,10 +66,12 @@ function Home() {
             </Carousel>
           </div>
 
-          {/* TÍTULO SECCIÓN PRODUCTOS */}
+          {/* TÍTULO SECCIÓN */}
           <div className="text-center">
             <h2 className="titulo-seccion my-4">MÁS POPULARES</h2>
           </div>
+
+          {loading && <Loader />}
 
           {/* LISTA DE PRODUCTOS (Desde Base de Datos) */}
           <Row>
