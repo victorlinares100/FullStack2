@@ -1,30 +1,37 @@
 import React from 'react';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../assets/img/aurea_logo_sin.webp';
-import { useUser } from '../../context/UserContext';
+import logo from '../../assets/img/aurea_logo_sin.webp'; //
+import { useUser } from '../../context/UserContext'; //
 
 function NavBar() {
-  const { user, logout } = useUser();
-  const navigate = useNavigate();
+  const { user, logout } = useUser(); //
+  const navigate = useNavigate(); //
 
   const handleLogout = () => {
-    logout();
-    navigate('/');
+    logout(); //
+    navigate('/'); //
   };
 
   const UserIcon = (
     <div className="d-flex align-items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16" style={{ color: '#C5A25D' }}>
-        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4 1 1 1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16" style={{ color: '#C5A25D' }}>
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+        <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
       </svg>
-      {user && <span className="ms-2 text-white">{user.nombre}</span>}
+      {user && (
+        <span
+          className="ms-2 text-white"
+          style={{ fontSize: '1.15rem', fontWeight: '500' }}
+        >
+          {user.nombre}
+        </span>
+      )}
     </div>
   );
-
   const CartIcon = (
-    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-cart-fill" viewBox="0 0 16 16" style={{ color: '#C5A25D' }}>
-      <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-cart-fill" viewBox="0 0 16 16" style={{ color: '#C5A25D' }}>
+      <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
     </svg>
   );
 
@@ -34,11 +41,11 @@ function NavBar() {
         <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
           <img
             src={logo}
-            width="70"
-            height="70"
+            width="35"
+            height="35"
             className="d-inline-block me-2"
             alt="Áurea Logo"
-            style={{ marginTop: '-15px', marginBottom: '-15px' }}
+            style={{ objectFit: 'contain' }}
           />
           Áurea
         </Navbar.Brand>
@@ -71,8 +78,15 @@ function NavBar() {
                 </>
               )}
             </NavDropdown>
-            <Nav.Link as={Link} to="/Carrito">
+
+            <Nav.Link as={Link} to="/Carrito" className="d-flex align-items-center">
               {CartIcon}
+              <span
+                className="ms-3 text-white"
+                style={{ fontSize: '1.15rem', fontWeight: '500' }}
+              >
+                Carrito
+              </span>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
